@@ -1,0 +1,25 @@
+{
+	"surveyId": "1", 
+	"responses": [
+		{
+			"questionId": "1", 
+			"value": "Incredible"
+		}, 
+		{
+			"questionId": "2", 
+			"value": "None"
+		}, 
+		{
+			"questionId": "3", 
+			"value": "Video Games"
+		}, 
+		{
+			"questionId": "3", 
+			"value": "Reading"
+		}, 
+		{
+			"questionId": "4", 
+			"value": "Nope!"
+		}
+	]
+}

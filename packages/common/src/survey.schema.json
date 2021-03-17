@@ -1,0 +1,254 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "survey": {
+            "$ref": "#/definitions/Survey"
+        }
+    }, 
+    "definitions": {
+        "BaseQuestion": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "CheckboxQuestion": {
+            "properties": {
+                "choices": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "checkbox"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "DropdownQuestion": {
+            "properties": {
+                "choices": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "dropdown"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "LinearScaleQuestion": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "max": {
+                    "type": "number"
+                },
+                "min": {
+                    "type": "number"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "linear_scale"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "MultipleChoiceQuestion": {
+            "properties": {
+                "choices": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "multiple_choice"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ParagraphQuestion": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "paragraph"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Question": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ShortAnswerQuestion"
+                },
+                {
+                    "$ref": "#/definitions/ParagraphQuestion"
+                },
+                {
+                    "$ref": "#/definitions/MultipleChoiceQuestion"
+                },
+                {
+                    "$ref": "#/definitions/CheckboxQuestion"
+                },
+                {
+                    "$ref": "#/definitions/DropdownQuestion"
+                },
+                {
+                    "$ref": "#/definitions/LinearScaleQuestion"
+                }
+            ]
+        },
+        "Response": {
+            "properties": {
+                "questionId": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ShortAnswerQuestion": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "short_answer"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Submission": {
+            "properties": {
+                "responses": {
+                    "items": {
+                        "$ref": "#/definitions/Response"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "Survey": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "questions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ShortAnswerQuestion"
+                            },
+                            {
+                                "$ref": "#/definitions/ParagraphQuestion"
+                            },
+                            {
+                                "$ref": "#/definitions/MultipleChoiceQuestion"
+                            },
+                            {
+                                "$ref": "#/definitions/CheckboxQuestion"
+                            },
+                            {
+                                "$ref": "#/definitions/DropdownQuestion"
+                            },
+                            {
+                                "$ref": "#/definitions/LinearScaleQuestion"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "submissions": {
+                    "items": {
+                        "$ref": "#/definitions/Submission"
+                    },
+                    "type": "array"
+                },
+                "subtitle": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

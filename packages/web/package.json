@@ -1,0 +1,8 @@
+{
+  "name": "@compass-surveys/web",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "@compass-surveys/common": "1.0.0"
+  }
+}

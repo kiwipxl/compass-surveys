@@ -1,0 +1,35 @@
+{
+	"id": "1", 
+	"name": "Student well-being Survey", 
+	"questions": [
+		{
+			"id": "1", 
+			"title": "How are you doing?", 
+			"type": "multiple_choice", 
+			"choices": [
+				"Incredible", "Great", "Fine", "I'm pretty bored", "I'm tired of being stuck inside", "I wish school was back in session", "Other"
+			]
+		}, 
+		{
+			"id": "2", 
+			"title": "How much homework have you done since school ended?", 
+			"type": "multiple_choice", 
+			"choices": [
+				"None", "One or two hours", "More than two hours"
+			]
+		}, 
+		{
+			"id": "3", 
+			"title": "How are you spending your time?", 
+			"type": "checkbox", 
+			"choices": [
+				"Video Games", "Board Games", "Reading", "Social Media", "Other"
+			]
+		}, 
+		{
+			"id": "4", 
+			"title": "Do you need help with anything?", 
+			"type": "paragraph"
+		}
+	]
+}

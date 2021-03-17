@@ -1,0 +1,24 @@
+{
+  "name": "@compass-surveys/server",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module", 
+  "devDependencies": {
+    "@types/node": "~14.14.31",
+    "nodemon": "^2.0.7",
+    "prettier": "~2.2.1",
+    "rimraf": "~3.0.2",
+    "typescript": "~4.2.2", 
+    "ts-node": "~9.1.1"
+  },
+  "scripts": {
+    "dev": "nodemon src/main.ts",
+    "start": "node build/src/main.js",
+    "clean": "rimraf coverage build tmp",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@compass-surveys/common": "1.0.0", 
+    "tslib": "~2.1.0"
+  }
+}
