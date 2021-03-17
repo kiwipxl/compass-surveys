@@ -6,9 +6,6 @@
   "devDependencies": {
     "typescript": "~4.2.2"
   },
-  "scripts": {
-    "start": "node build/src/main.js"
-  },
   "dependencies": {
     "tslib": "~2.1.0"
   }
