@@ -1,24 +1,52 @@
 import { Survey } from '@compass-surveys/common';
+import surveySchemaDefs from '@compass-surveys/common/src/surveyDefinitions.schema.json';
 import fs from 'fs';
 import path from 'path';
 import express from 'express';
 import cors from 'cors';
+import { Validator } from 'jsonschema';
+import { __dirname } from './util';
 
-// We have to emulate __dirname as we are using "module" as opposed to "commonjs"
-// https://github.com/nodejs/help/issues/2907
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+function readSurveysDir(): Survey[] {
+  const surveySchema = Object.assign(
+    {
+      properties: {
+        root: {
+          $ref: '#/definitions/Survey',
+        },
+      },
+    },
+    surveySchemaDefs,
+  );
 
-const surveys: Survey[] = [];
-const surveysDir = path.join(__dirname, 'surveys');
-for (const name of fs.readdirSync(surveysDir)) {
-  const survey: Survey = JSON.parse(
-    fs.readFileSync(path.join(surveysDir, name), 'utf8'),
-  ) as Survey;
+  const validator = new Validator();
 
-  surveys.push(survey);
+  const surveys: Survey[] = [];
+  const surveysDir = path.join(__dirname, '../surveys');
+
+  for (const name of fs.readdirSync(surveysDir)) {
+    const surveyObject = JSON.parse(
+      fs.readFileSync(path.join(surveysDir, name), 'utf8'),
+    );
+    const validationRes = validator.validate(
+      { root: surveyObject },
+      surveySchema,
+    );
+
+    if (validationRes.valid) {
+      console.log(`loaded survey '${name}'`);
+      surveys.push(surveyObject as Survey);
+    } else {
+      console.error(
+        `Invalid survey '${name}'. Error: ${validationRes.errors[0]}`,
+      );
+    }
+  }
+
+  return surveys;
 }
+
+const surveys = readSurveysDir();
 
 const app = express();
 

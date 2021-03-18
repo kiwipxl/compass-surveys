@@ -1,10 +1,5 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "properties": {
-        "survey": {
-            "$ref": "#/definitions/Survey"
-        }
-    }, 
     "definitions": {
         "BaseQuestion": {
             "properties": {
@@ -18,6 +13,10 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "title"
+            ],
             "type": "object"
         },
         "CheckboxQuestion": {
@@ -44,6 +43,12 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "choices",
+                "id",
+                "title",
+                "type"
+            ],
             "type": "object"
         },
         "DropdownQuestion": {
@@ -70,6 +75,12 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "choices",
+                "id",
+                "title",
+                "type"
+            ],
             "type": "object"
         },
         "LinearScaleQuestion": {
@@ -96,6 +107,13 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "max",
+                "min",
+                "title",
+                "type"
+            ],
             "type": "object"
         },
         "MultipleChoiceQuestion": {
@@ -122,6 +140,12 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "choices",
+                "id",
+                "title",
+                "type"
+            ],
             "type": "object"
         },
         "ParagraphQuestion": {
@@ -142,6 +166,11 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "title",
+                "type"
+            ],
             "type": "object"
         },
         "Question": {
@@ -175,6 +204,10 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "questionId",
+                "value"
+            ],
             "type": "object"
         },
         "ShortAnswerQuestion": {
@@ -195,6 +228,11 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "title",
+                "type"
+            ],
             "type": "object"
         },
         "Submission": {
@@ -206,6 +244,9 @@
                     "type": "array"
                 }
             },
+            "required": [
+                "responses"
+            ],
             "type": "object"
         },
         "Survey": {
@@ -248,7 +289,12 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "name",
+                "questions"
+            ],
             "type": "object"
         }
     }
 }
+

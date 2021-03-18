@@ -10,7 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "strictNullChecks": false, 
     "rootDir": ".",
-    "outDir": "build"
+    "outDir": "build", 
+    "resolveJsonModule": true
   },
   "include": [
     "src/**/*"

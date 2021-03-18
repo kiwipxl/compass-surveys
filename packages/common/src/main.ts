@@ -1,8 +1,8 @@
 export interface Survey {
   name: string;
-  subtitle: string;
+  subtitle?: string;
   questions: Question[];
-  submissions: Submission[];
+  submissions?: Submission[];
 }
 
 export type Question =
@@ -16,7 +16,7 @@ export type Question =
 export interface BaseQuestion {
   id: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 export interface ShortAnswerQuestion extends BaseQuestion {
