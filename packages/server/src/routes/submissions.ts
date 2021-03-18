@@ -54,7 +54,7 @@ router.post('/surveys/:surveyId/submissions', async (req, res) => {
   );
   if (!validateRes.valid) {
     res.status(400);
-    res.send({ error: validateRes.errors[0].message });
+    res.send({ error: validateRes.errors[0].stack });
     return;
   }
 
