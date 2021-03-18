@@ -173,6 +173,32 @@
             ],
             "type": "object"
         },
+        "PostSubmissionRequest": {
+            "properties": {
+                "responses": {
+                    "items": {
+                        "properties": {
+                            "questionId": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "questionId",
+                            "value"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "responses"
+            ],
+            "type": "object"
+        },
         "Question": {
             "anyOf": [
                 {
@@ -197,6 +223,9 @@
         },
         "Response": {
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "questionId": {
                     "type": "string"
                 },
@@ -205,6 +234,7 @@
                 }
             },
             "required": [
+                "id",
                 "questionId",
                 "value"
             ],
@@ -237,20 +267,35 @@
         },
         "Submission": {
             "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
                 "responses": {
                     "items": {
                         "$ref": "#/definitions/Response"
                     },
                     "type": "array"
+                },
+                "surveyId": {
+                    "type": "string"
                 }
             },
             "required": [
-                "responses"
+                "date",
+                "id",
+                "responses",
+                "surveyId"
             ],
             "type": "object"
         },
         "Survey": {
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
@@ -290,6 +335,7 @@
                 }
             },
             "required": [
+                "id",
                 "name",
                 "questions"
             ],

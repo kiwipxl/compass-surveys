@@ -1,4 +1,5 @@
 export interface Survey {
+  id: string;
   name: string;
   subtitle?: string;
   questions: Question[];
@@ -49,10 +50,19 @@ export interface LinearScaleQuestion extends BaseQuestion {
 }
 
 export interface Submission {
+  id: string;
+  surveyId: string;
   responses: Response[];
+  date: string;
 }
 
 export interface Response {
+  id: string;
   questionId: string;
   value: string;
+}
+
+export interface PostSubmissionRequest {
+  surveyId: string;
+  responses: Response[];
 }
