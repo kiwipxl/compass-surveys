@@ -1,33 +1,15 @@
 import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import { __dirname } from './util';
-import { localSurveys, getLocalSurvey } from './surveys';
+import { PostSubmissionRequest } from '@compass-surveys/common';
+import { __dirname } from '../util';
+import { getLocalSurvey } from '../surveys';
 import {
   createSubmission,
   getSubmission,
   getAllSubmissions,
-} from './db/submissions';
-import { getResponse, getAllResponses } from './db/responses';
-import { validateSchema } from './validation';
-import { PostSubmissionRequest } from '@compass-surveys/common';
+} from '../db/submissions';
+import { validateSchema } from '../validation';
 
 const router = express.Router();
-
-router.get('/surveys', (req, res) => {
-  res.send(localSurveys);
-});
-
-router.get('/surveys/:surveyId', (req, res) => {
-  const survey = getLocalSurvey(req.params.surveyId);
-  if (!survey) {
-    res.status(404);
-    res.send('Survey does not exist');
-    return;
-  }
-
-  res.send(survey);
-});
 
 router.get('/surveys/:surveyId/submissions/:submissionId', async (req, res) => {
   const survey = getLocalSurvey(req.params.surveyId);
@@ -82,16 +64,4 @@ router.post('/surveys/:surveyId/submissions', async (req, res) => {
   res.send(submission);
 });
 
-export default () => {
-  const app = express();
-
-  app.use(cors());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-
-  app.use('/api', router);
-
-  app.listen(4000, () => {
-    console.log('server started');
-  });
-};
+export default router;
