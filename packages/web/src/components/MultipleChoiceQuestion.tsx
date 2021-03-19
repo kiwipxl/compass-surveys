@@ -15,12 +15,8 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({ question }) => {
     return <div>No choices given!</div>;
   }
 
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(ev.target.value);
-  };
-
   return (
-    <RadioGroup value={value} onChange={handleChange}>
+    <RadioGroup value={value} onChange={(ev) => setValue(ev.target.value)}>
       {question.choices.map((choice) => (
         <FormControlLabel
           key={choice}

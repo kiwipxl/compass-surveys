@@ -57,6 +57,8 @@ export interface LinearScaleQuestion extends BaseQuestion {
   type: QuestionType.LinearScale;
   min: number;
   max: number;
+  step?: number;
+  default?: number;
 }
 
 export interface Submission {
