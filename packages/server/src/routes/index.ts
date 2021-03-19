@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import surveys from './surveys';
 import submissions from './submissions';
 
+const PORT = 4000;
+
 export default () => {
   const app = express();
 
@@ -14,7 +16,7 @@ export default () => {
   app.use('/api', surveys);
   app.use('/api', submissions);
 
-  app.listen(4000, () => {
-    console.log('server started');
+  app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`);
   });
 };

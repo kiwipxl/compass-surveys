@@ -8,7 +8,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <GlobalStyle></GlobalStyle>
       <Switch>
-        <Route exact path="/survey/:surveyId">
+        <Route exact path="/surveys/:surveyId">
           <SurveyFormPage></SurveyFormPage>
         </Route>
 

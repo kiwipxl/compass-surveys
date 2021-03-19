@@ -6,6 +6,15 @@ export interface Survey {
   submissions?: Submission[];
 }
 
+export enum QuestionType {
+  ShortAnswer = 'short_answer',
+  Paragraph = 'paragraph',
+  MultipleChoice = 'multiple_choice',
+  Checkbox = 'checkbox',
+  Dropdown = 'dropdown',
+  LinearScale = 'linear_scale',
+}
+
 export type Question =
   | ShortAnswerQuestion
   | ParagraphQuestion
@@ -18,33 +27,34 @@ export interface BaseQuestion {
   id: string;
   title: string;
   subtitle?: string;
+  required?: boolean;
 }
 
 export interface ShortAnswerQuestion extends BaseQuestion {
-  type: 'short_answer';
+  type: QuestionType.ShortAnswer;
 }
 
 export interface ParagraphQuestion extends BaseQuestion {
-  type: 'paragraph';
+  type: QuestionType.Paragraph;
 }
 
 export interface MultipleChoiceQuestion extends BaseQuestion {
-  type: 'multiple_choice';
+  type: QuestionType.MultipleChoice;
   choices: string[];
 }
 
 export interface CheckboxQuestion extends BaseQuestion {
-  type: 'checkbox';
+  type: QuestionType.Checkbox;
   choices: string[];
 }
 
 export interface DropdownQuestion extends BaseQuestion {
-  type: 'dropdown';
+  type: QuestionType.Dropdown;
   choices: string[];
 }
 
 export interface LinearScaleQuestion extends BaseQuestion {
-  type: 'linear_scale';
+  type: QuestionType.LinearScale;
   min: number;
   max: number;
 }
