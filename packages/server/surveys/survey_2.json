@@ -20,8 +20,9 @@
 			"title": "If you had 1 million dollarydoos, what would you spend it on?", 
 			"type": "multiple_choice", 
 			"choices": [
-				"Investment", "Tiny 1 bedroom apartment in Melbourne CBD", "Video Games", "Cat Shelter", "Other"
-			]
+				"Investment", "Tiny 1 bedroom apartment in Melbourne CBD", "Video Games", "Cat Shelter"
+			], 
+			"otherChoice": true
 		}, 
 		{
 			"id": "8", 
@@ -29,7 +30,8 @@
 			"type": "checkbox", 
 			"choices": [
 				"Amazing", "Incredible", "What's not to love?"
-			]
+			], 
+			"otherChoice": true
 		}, 
 		{
 			"id": "9", 

@@ -41,11 +41,13 @@ export interface ParagraphQuestion extends BaseQuestion {
 export interface MultipleChoiceQuestion extends BaseQuestion {
   type: QuestionType.MultipleChoice;
   choices: string[];
+  otherChoice?: boolean;
 }
 
 export interface CheckboxQuestion extends BaseQuestion {
   type: QuestionType.Checkbox;
   choices: string[];
+  otherChoice?: boolean;
 }
 
 export interface DropdownQuestion extends BaseQuestion {

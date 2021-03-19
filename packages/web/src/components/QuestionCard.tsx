@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -6,6 +7,7 @@ import { Question } from '@compass-surveys/common';
 import QuestionVariant from './QuestionVariant';
 
 interface Props {
+  className?: string;
   title: string;
   subtitle?: string;
   required: boolean;
@@ -13,6 +15,7 @@ interface Props {
 }
 
 const QuestionCard: React.FC<Props> = ({
+  className,
   title,
   subtitle,
   required,
@@ -20,11 +23,9 @@ const QuestionCard: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <Card>
+    <Card className={className} variant="outlined">
       <CardContent>
-        <Typography variant="h6" component="h2">
-          {title}
-        </Typography>
+        <Typography variant="h6">{title}</Typography>
 
         {subtitle && <Typography color="textSecondary">{subtitle}</Typography>}
 
@@ -36,4 +37,4 @@ const QuestionCard: React.FC<Props> = ({
   );
 };
 
-export default QuestionCard;
+export default styled(QuestionCard)``;

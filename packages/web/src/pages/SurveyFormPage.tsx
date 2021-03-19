@@ -28,13 +28,13 @@ const SurveyFormPage: React.FC<Props> = ({ className }) => {
       {survey && (
         <FormContainer>
           {survey.questions.map((q) => (
-            <QuestionCard
+            <StyledQuestionCard
               key={q.id}
               title={q.title}
               subtitle={q.subtitle}
               required={q.required || false}
               question={q}
-            ></QuestionCard>
+            ></StyledQuestionCard>
           ))}
         </FormContainer>
       )}
@@ -46,6 +46,11 @@ const FormContainer = styled.div`
   width: 100%;
   max-width: 600px;
   padding: 20px;
+`;
+
+const StyledQuestionCard = styled(QuestionCard)`
+  margin-top: 25px;
+  margin-bottom: 25px;
 `;
 
 export default styled(SurveyFormPage)`
