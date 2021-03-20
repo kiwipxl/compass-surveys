@@ -101,6 +101,7 @@ const SubmitButton = styled(Button)`
 export default styled(SurveyFormPage)`
   width: 100%;
   margin-top: 40px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
 `;

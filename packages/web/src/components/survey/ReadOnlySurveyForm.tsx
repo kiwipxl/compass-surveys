@@ -15,6 +15,7 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
   className,
   survey,
   responses,
+  children,
 }) => {
   const getResponseDefaultValue = (question: Question) => {
     const values = responses
@@ -67,7 +68,7 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
           </StyledQuestionCard>
         ))}
 
-        <input type="submit"></input>
+        {children}
       </Container>
     </div>
   );
@@ -77,6 +78,7 @@ const Container = styled.div`
   width: 100%;
   max-width: 600px;
   padding: 20px;
+  padding-top: 0px;
 `;
 
 const StyledQuestionCard = styled(QuestionCard)`
