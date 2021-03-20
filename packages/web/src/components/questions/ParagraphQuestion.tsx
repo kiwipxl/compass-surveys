@@ -5,22 +5,24 @@ import { ParagraphQuestion } from '@compass-surveys/common';
 
 interface Props {
   className?: string;
+  defaultValue?: string;
   question: ParagraphQuestion;
+  onChange: (value: string) => void;
 }
 
 const ParagraphQuestionComponent: React.FC<Props> = ({
   className,
+  defaultValue,
   question,
+  onChange,
 }) => {
-  const [value, setValue] = React.useState('');
-
   return (
     <TextField
       className={className}
-      value={value}
+      defaultValue={defaultValue}
       placeholder="Your Answer"
       multiline
-      onChange={(ev) => setValue(ev.target.value)}
+      onChange={(ev) => onChange(ev.target.value)}
     ></TextField>
   );
 };

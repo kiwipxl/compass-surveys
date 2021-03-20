@@ -7,11 +7,19 @@ import { MultipleChoiceQuestion } from '@compass-surveys/common';
 import OtherTextField from './OtherTextField';
 
 interface Props {
+  className?: string;
   question: MultipleChoiceQuestion;
+  defaultValue?: string;
+  onChange: (value: string) => void;
 }
 
-const MultipleChoiceQuestionComponent: React.FC<Props> = ({ question }) => {
-  const [value, setValue] = React.useState('');
+const MultipleChoiceQuestionComponent: React.FC<Props> = ({
+  className,
+  question,
+  defaultValue,
+  onChange,
+}) => {
+  const [value, setValue] = React.useState(defaultValue || '');
   const [otherText, setOtherText] = React.useState('');
 
   if (question.choices.length === 0) {
@@ -19,7 +27,18 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({ question }) => {
   }
 
   return (
-    <RadioGroup value={value} onChange={(ev) => setValue(ev.target.value)}>
+    <RadioGroup
+      className={className}
+      value={value}
+      onChange={(ev, newValue) => {
+        setValue(newValue);
+        if (newValue === 'Other') {
+          onChange(otherText);
+        } else {
+          onChange(newValue);
+        }
+      }}
+    >
       {question.choices.map((choice) => (
         <FormControlLabel
           key={choice}
@@ -35,9 +54,10 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({ question }) => {
           value="Other"
           label={
             <OtherTextField
-              onChange={(text) => {
-                setOtherText(text);
+              onChange={(ev) => {
                 setValue('Other');
+                setOtherText(ev.target.value);
+                onChange(ev.target.value);
               }}
             ></OtherTextField>
           }

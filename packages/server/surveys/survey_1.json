@@ -7,8 +7,9 @@
 			"title": "How are you doing?", 
 			"type": "multiple_choice", 
 			"choices": [
-				"Incredible", "Great", "Fine", "I'm pretty bored", "I'm tired of being stuck inside", "I wish school was back in session", "Other"
-			]
+				"Incredible", "Great", "Fine", "I'm pretty bored", "I'm tired of being stuck inside", "I wish school was back in session"
+			], 
+			"otherChoice": true
 		}, 
 		{
 			"id": "2", 
@@ -23,8 +24,9 @@
 			"title": "How are you spending your time?", 
 			"type": "checkbox", 
 			"choices": [
-				"Video Games", "Board Games", "Reading", "Social Media", "Other"
-			]
+				"Video Games", "Board Games", "Reading", "Social Media"
+			], 
+			"otherChoice": true
 		}, 
 		{
 			"id": "4", 

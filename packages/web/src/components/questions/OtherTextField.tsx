@@ -3,28 +3,13 @@ import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-interface Props {
-  onChange?: (value: string) => void;
-}
+interface Props extends React.ComponentPropsWithoutRef<typeof TextField> {}
 
-const OtherTextField: React.FC<Props> = (props) => {
-  const { onChange } = props;
-
-  const [value, setValue] = React.useState('');
-
+const OtherTextField: React.FC<Props> = ({ ...props }) => {
   return (
     <Container>
       <Typography>Other: </Typography>
-      <StyledTextField
-        value={value}
-        onChange={(ev) => {
-          setValue(ev.target.value);
-
-          if (onChange) {
-            onChange(ev.target.value);
-          }
-        }}
-      ></StyledTextField>
+      <StyledTextField {...props}></StyledTextField>
     </Container>
   );
 };

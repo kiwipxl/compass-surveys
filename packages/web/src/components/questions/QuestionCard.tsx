@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Field } from 'react-final-form';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -8,18 +9,22 @@ import QuestionVariant from './QuestionVariant';
 
 interface Props {
   className?: string;
+  namePrefix: string;
   title: string;
   subtitle?: string;
   required: boolean;
   question: Question;
+  defaultValue?: any;
 }
 
 const QuestionCard: React.FC<Props> = ({
   className,
+  namePrefix,
   title,
   subtitle,
   required,
   question,
+  defaultValue,
   children,
 }) => {
   return (
@@ -29,12 +34,31 @@ const QuestionCard: React.FC<Props> = ({
 
         {subtitle && <Typography color="textSecondary">{subtitle}</Typography>}
 
-        <QuestionVariant question={question}></QuestionVariant>
+        <QuestionContainer>
+          <Field name={namePrefix + question.type}>
+            {(props) => (
+              <QuestionVariant
+                question={question}
+                defaultValue={defaultValue}
+                onChange={(value) => {
+                  console.log(value);
+                  props.input.onChange({ target: { value: value } });
+                }}
+              ></QuestionVariant>
+            )}
+          </Field>
+        </QuestionContainer>
 
         {children}
       </CardContent>
     </Card>
   );
 };
+
+const QuestionContainer = styled.div`
+  margin-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+`;
 
 export default styled(QuestionCard)``;

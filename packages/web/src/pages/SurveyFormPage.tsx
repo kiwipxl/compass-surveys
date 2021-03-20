@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { Survey } from '@compass-surveys/common';
-import QuestionCard from '../components/QuestionCard';
+import { Survey, Response } from '@compass-surveys/common';
 import { SERVER_URL } from '../config';
+import SurveyForm from '../components/SurveyForm';
 
 interface Props {
   className?: string;
@@ -13,7 +13,7 @@ const SurveyFormPage: React.FC<Props> = ({ className }) => {
   let { surveyId } = useParams<{ surveyId: string }>();
   const [survey, setSurvey] = React.useState<Survey>();
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetch(`${SERVER_URL}/surveys/${surveyId}`)
       .then((res) => res.json())
       .then((obj) => {
@@ -25,37 +25,11 @@ const SurveyFormPage: React.FC<Props> = ({ className }) => {
     <div className={className}>
       {!survey && <div>Loading...</div>}
 
-      {survey && (
-        <FormContainer>
-          {survey.questions.map((q) => (
-            <StyledQuestionCard
-              key={q.id}
-              title={q.title}
-              subtitle={q.subtitle}
-              required={q.required || false}
-              question={q}
-            ></StyledQuestionCard>
-          ))}
-        </FormContainer>
-      )}
+      {survey && <SurveyForm survey={survey}></SurveyForm>}
     </div>
   );
 };
 
-const FormContainer = styled.div`
-  width: 100%;
-  max-width: 600px;
-  padding: 20px;
-`;
-
-const StyledQuestionCard = styled(QuestionCard)`
-  margin-top: 25px;
-  margin-bottom: 25px;
-`;
-
 export default styled(SurveyFormPage)`
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
