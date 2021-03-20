@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Survey, Submission } from '@compass-surveys/common';
 import { SERVER_URL } from '../config';
 import ReadOnlySurveyForm from '../components/survey/ReadOnlySurveyForm';
+import Status from '../components/Status';
 
 interface Props {
   className?: string;
@@ -31,7 +32,7 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      {!survey && <div>Loading...</div>}
+      {!survey && <Status message="Loading...">Loading...</Status>}
 
       {survey && submissions && (
         <div>

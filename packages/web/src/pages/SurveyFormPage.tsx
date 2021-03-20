@@ -45,11 +45,9 @@ const SurveyFormPage: React.FC<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      {!survey && <StyledStatus message="Loading..."></StyledStatus>}
+      {!survey && <Status message="Loading..."></Status>}
 
-      {submitState.submitting && (
-        <StyledStatus message="Submitting..."></StyledStatus>
-      )}
+      {submitState.submitting && <Status message="Submitting..."></Status>}
 
       {survey && submitState.submission && (
         <SurveyFormSubmitted title={survey.name}></SurveyFormSubmitted>
@@ -81,8 +79,6 @@ const SurveyFormPage: React.FC<Props> = ({ className }) => {
     </div>
   );
 };
-
-const StyledStatus = styled(Status)``;
 
 const FormActions = styled.div`
   display: flex;

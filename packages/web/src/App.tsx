@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import SurveyFormPage from './pages/SurveyFormPage';
 import SurveySubmissionsPage from './pages/SurveySubmissionsPage';
+import SurveyListPage from './pages/SurveyListPage';
 
 const App: React.FC = () => {
   return (
@@ -17,7 +18,9 @@ const App: React.FC = () => {
           <SurveyFormPage></SurveyFormPage>
         </Route>
 
-        <Route exact path="/"></Route>
+        <Route exact path="/">
+          <SurveyListPage></SurveyListPage>
+        </Route>
       </Switch>
     </BrowserRouter>
   );
