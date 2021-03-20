@@ -39,7 +39,7 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
         return values.length > 0 ? values[0] : undefined;
 
       case 'linear_scale':
-        return values.length > 0 ? values[0] : undefined;
+        return values.length > 0 ? Number(values[0]) : undefined;
     }
 
     return undefined;

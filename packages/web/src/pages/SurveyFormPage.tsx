@@ -33,7 +33,7 @@ const SurveyFormPage: React.FC<Props> = ({ className }) => {
       .then((obj) => {
         setSurvey(obj);
       });
-  }, []);
+  }, [surveyId]);
 
   const handleSubmit = () => {
     setSubmitState({ submitting: true, submission: null });

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { useParams, useHistory } from 'react-router-dom';
@@ -31,7 +31,7 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
       .then((obj) => {
         setSubmissions(obj);
       });
-  }, []);
+  }, [surveyId]);
 
   return (
     <div className={className}>

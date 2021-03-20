@@ -1,6 +1,5 @@
 import React from 'react';
 import Slider from '@material-ui/core/Slider';
-import { Field } from 'react-final-form';
 import { LinearScaleQuestion } from '@compass-surveys/common';
 
 interface Props {

@@ -24,24 +24,26 @@ const PaginationButtons: React.FC<Props> = ({
     <div className={className}>
       <PageLabel>{`${page + 1} of ${maxPages}`}</PageLabel>
 
-      <IconButton disabled={page <= 0}>
-        <ChevronLeftIcon
-          onClick={() => {
-            if (onPrev) {
-              onPrev(page - 1);
-            }
-          }}
-        ></ChevronLeftIcon>
+      <IconButton
+        disabled={page <= 0}
+        onClick={() => {
+          if (onPrev) {
+            onPrev(page - 1);
+          }
+        }}
+      >
+        <ChevronLeftIcon></ChevronLeftIcon>
       </IconButton>
 
-      <IconButton disabled={page >= maxPages - 1}>
-        <ChevronRightIcon
-          onClick={() => {
-            if (onNext) {
-              onNext(page + 1);
-            }
-          }}
-        ></ChevronRightIcon>
+      <IconButton
+        disabled={page >= maxPages - 1}
+        onClick={() => {
+          if (onNext) {
+            onNext(page + 1);
+          }
+        }}
+      >
+        <ChevronRightIcon></ChevronRightIcon>
       </IconButton>
     </div>
   );
