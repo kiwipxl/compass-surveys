@@ -1,5 +1,4 @@
 import express from 'express';
-import { PostSubmissionRequest } from '@compass-surveys/common';
 import { __dirname } from '../util';
 import { getLocalSurvey } from '../surveys';
 import {
@@ -8,6 +7,7 @@ import {
   getAllSubmissions,
 } from '../db/submissions';
 import { validateSchema } from '../validation';
+import { Submission } from '@compass-surveys/common';
 
 const router = express.Router();
 
@@ -48,17 +48,14 @@ router.post('/surveys/:surveyId/submissions', async (req, res) => {
     return;
   }
 
-  const validateRes = validateSchema(
-    req.body,
-    '#/definitions/PostSubmissionRequest',
-  );
+  const validateRes = validateSchema(req.body, '#/definitions/Submission');
   if (!validateRes.valid) {
     res.status(400);
     res.send({ error: validateRes.errors[0].stack });
     return;
   }
 
-  const submissionReq = req.body as PostSubmissionRequest;
+  const submissionReq = req.body as Submission;
   const submission = await createSubmission(survey.id, submissionReq.responses);
 
   res.send(submission);

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { Survey, Response } from '@compass-surveys/common';
+import { Survey } from '@compass-surveys/common';
 import { SERVER_URL } from '../config';
 import SurveyForm from '../components/SurveyForm';
 

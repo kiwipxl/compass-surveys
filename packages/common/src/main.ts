@@ -75,8 +75,3 @@ export interface Response {
   questionId: string;
   value: string;
 }
-
-export interface PostSubmissionRequest {
-  surveyId: string;
-  responses: Response[];
-}

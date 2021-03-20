@@ -56,7 +56,6 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
             {survey.questions.map((q, index) => (
               <StyledQuestionCard
                 key={q.id}
-                namePrefix={`questions[${index}]`}
                 title={q.title}
                 subtitle={q.subtitle}
                 required={q.required || false}

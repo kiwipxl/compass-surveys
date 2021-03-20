@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Form } from 'react-final-form';
-import { Survey } from '@compass-surveys/common';
+import { Survey, Submission, Response } from '@compass-surveys/common';
 import QuestionCard from './questions/QuestionCard';
+import { SERVER_URL } from '../config';
 
 interface Props {
   className?: string;
@@ -11,7 +12,54 @@ interface Props {
 
 const SurveyForm: React.FC<Props> = ({ className, survey }) => {
   const onSubmit = (values: any) => {
-    console.log(values);
+    let responses: Response[] = [];
+
+    if (values.questions) {
+      for (let n = 0; n < values.questions.length; ++n) {
+        const value = values.questions[n];
+        if (!value) {
+          continue;
+        }
+
+        const question = survey.questions[n];
+        switch (question.type) {
+          case 'checkbox':
+            for (const v of value as string[]) {
+              responses.push({
+                id: '',
+                questionId: question.id,
+                value: v,
+              });
+            }
+            break;
+
+          default:
+            responses.push({
+              id: '',
+              questionId: question.id,
+              value: String(value),
+            });
+            break;
+        }
+      }
+    }
+
+    let submission: Submission = {
+      id: '',
+      surveyId: '',
+      date: '',
+      responses: responses,
+    };
+
+    fetch(`${SERVER_URL}/surveys/${survey.id}/submissions`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(submission),
+    })
+      .then((res) => res.json())
+      .then((json) => console.log(json));
   };
 
   return (
@@ -23,7 +71,7 @@ const SurveyForm: React.FC<Props> = ({ className, survey }) => {
             {survey.questions.map((q, index) => (
               <StyledQuestionCard
                 key={q.id}
-                namePrefix={`questions[${index}]`}
+                name={`questions[${index}]`}
                 title={q.title}
                 subtitle={q.subtitle}
                 required={q.required || false}

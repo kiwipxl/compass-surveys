@@ -9,7 +9,7 @@ import QuestionVariant from './QuestionVariant';
 
 interface Props {
   className?: string;
-  namePrefix: string;
+  name?: string;
   title: string;
   subtitle?: string;
   required: boolean;
@@ -19,7 +19,7 @@ interface Props {
 
 const QuestionCard: React.FC<Props> = ({
   className,
-  namePrefix,
+  name,
   title,
   subtitle,
   required,
@@ -35,15 +35,14 @@ const QuestionCard: React.FC<Props> = ({
         {subtitle && <Typography color="textSecondary">{subtitle}</Typography>}
 
         <QuestionContainer>
-          <Field name={namePrefix + question.type}>
+          <Field name={name || ''}>
             {(props) => (
               <QuestionVariant
                 question={question}
                 defaultValue={defaultValue}
-                onChange={(value) => {
-                  console.log(value);
-                  props.input.onChange({ target: { value: value } });
-                }}
+                onChange={(value) =>
+                  props.input.onChange({ target: { value: value } })
+                }
               ></QuestionVariant>
             )}
           </Field>

@@ -6,6 +6,9 @@
                 "id": {
                     "type": "string"
                 },
+                "required": {
+                    "type": "boolean"
+                },
                 "subtitle": {
                     "type": "string"
                 },
@@ -29,6 +32,12 @@
                 },
                 "id": {
                     "type": "string"
+                },
+                "otherChoice": {
+                    "type": "boolean"
+                },
+                "required": {
+                    "type": "boolean"
                 },
                 "subtitle": {
                     "type": "string"
@@ -62,6 +71,9 @@
                 "id": {
                     "type": "string"
                 },
+                "required": {
+                    "type": "boolean"
+                },
                 "subtitle": {
                     "type": "string"
                 },
@@ -85,6 +97,9 @@
         },
         "LinearScaleQuestion": {
             "properties": {
+                "default": {
+                    "type": "number"
+                },
                 "id": {
                     "type": "string"
                 },
@@ -92,6 +107,12 @@
                     "type": "number"
                 },
                 "min": {
+                    "type": "number"
+                },
+                "required": {
+                    "type": "boolean"
+                },
+                "step": {
                     "type": "number"
                 },
                 "subtitle": {
@@ -127,6 +148,12 @@
                 "id": {
                     "type": "string"
                 },
+                "otherChoice": {
+                    "type": "boolean"
+                },
+                "required": {
+                    "type": "boolean"
+                },
                 "subtitle": {
                     "type": "string"
                 },
@@ -153,6 +180,9 @@
                 "id": {
                     "type": "string"
                 },
+                "required": {
+                    "type": "boolean"
+                },
                 "subtitle": {
                     "type": "string"
                 },
@@ -170,32 +200,6 @@
                 "id",
                 "title",
                 "type"
-            ],
-            "type": "object"
-        },
-        "PostSubmissionRequest": {
-            "properties": {
-                "responses": {
-                    "items": {
-                        "properties": {
-                            "questionId": {
-                                "type": "string"
-                            },
-                            "value": {
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "questionId",
-                            "value"
-                        ],
-                        "type": "object"
-                    },
-                    "type": "array"
-                }
-            },
-            "required": [
-                "responses"
             ],
             "type": "object"
         },
@@ -221,6 +225,17 @@
                 }
             ]
         },
+        "QuestionType": {
+            "enum": [
+                "checkbox",
+                "dropdown",
+                "linear_scale",
+                "multiple_choice",
+                "paragraph",
+                "short_answer"
+            ],
+            "type": "string"
+        },
         "Response": {
             "properties": {
                 "id": {
@@ -244,6 +259,9 @@
             "properties": {
                 "id": {
                     "type": "string"
+                },
+                "required": {
+                    "type": "boolean"
                 },
                 "subtitle": {
                     "type": "string"
