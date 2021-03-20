@@ -8,33 +8,27 @@ interface Props {
   className?: string;
   title: string;
   subtitle?: string;
-  required: boolean;
 }
 
-const QuestionCard: React.FC<Props> = ({
+const SurveyTitle: React.FC<Props> = ({
   className,
   title,
   subtitle,
-  required,
   children,
 }) => {
   return (
-    <Card className={className} variant="outlined">
+    <Card className={className} variant="elevation" elevation={1}>
       <CardContent>
-        <Typography variant="h6">{title}</Typography>
+        <Typography variant="h4">{title}</Typography>
 
         {subtitle && <Typography color="textSecondary">{subtitle}</Typography>}
 
-        <QuestionContainer>{children}</QuestionContainer>
+        {children}
       </CardContent>
     </Card>
   );
 };
 
-const QuestionContainer = styled.div`
-  margin-top: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
+export default styled(SurveyTitle)`
+  border-radius: 20px 20px 5px 5px !important;
 `;
-
-export default styled(QuestionCard)``;

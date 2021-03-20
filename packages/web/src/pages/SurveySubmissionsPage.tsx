@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { Survey, Submission } from '@compass-surveys/common';
 import { SERVER_URL } from '../config';
-import ReadOnlySurveyForm from '../components/ReadOnlySurveyForm';
+import ReadOnlySurveyForm from '../components/survey/ReadOnlySurveyForm';
 
 interface Props {
   className?: string;

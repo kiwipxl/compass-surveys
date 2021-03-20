@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Survey, Question, Response } from '@compass-surveys/common';
 import QuestionCard from './questions/QuestionCard';
 import QuestionContent from './questions/QuestionContent';
+import SurveyTitle from './SurveyTitle';
 
 interface Props {
   className?: string;
@@ -46,6 +47,11 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
   return (
     <div className={className}>
       <Container>
+        <SurveyTitle
+          title={survey.name}
+          subtitle={survey.subtitle}
+        ></SurveyTitle>
+
         {survey.questions.map((q, index) => (
           <StyledQuestionCard
             key={q.id}

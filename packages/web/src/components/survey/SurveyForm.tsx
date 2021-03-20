@@ -4,15 +4,24 @@ import { Form, Field } from 'react-final-form';
 import { Survey, Submission, Response } from '@compass-surveys/common';
 import QuestionCard from './questions/QuestionCard';
 import QuestionContent from './questions/QuestionContent';
-import { SERVER_URL } from '../config';
+import { SERVER_URL } from '../../config';
+import SurveyTitle from './SurveyTitle';
 
 interface Props {
   className?: string;
   survey: Survey;
+  onSubmit: () => void;
+  onSubmitComplete: (submission: Submission) => void;
 }
 
-const SurveyForm: React.FC<Props> = ({ className, survey }) => {
-  const onSubmit = (values: any) => {
+const SurveyForm: React.FC<Props> = ({
+  className,
+  survey,
+  onSubmit,
+  onSubmitComplete,
+  children,
+}) => {
+  const handleSubmit = (values: any) => {
     let responses: Response[] = [];
 
     if (values.questions) {
@@ -52,6 +61,10 @@ const SurveyForm: React.FC<Props> = ({ className, survey }) => {
       responses: responses,
     };
 
+    if (onSubmit) {
+      onSubmit();
+    }
+
     fetch(`${SERVER_URL}/surveys/${survey.id}/submissions`, {
       headers: {
         'Content-Type': 'application/json',
@@ -60,15 +73,24 @@ const SurveyForm: React.FC<Props> = ({ className, survey }) => {
       body: JSON.stringify(submission),
     })
       .then((res) => res.json())
-      .then((json) => console.log(json));
+      .then((json) => {
+        if (onSubmitComplete) {
+          onSubmitComplete(json);
+        }
+      });
   };
 
   return (
     <div className={className}>
       <Form
-        onSubmit={onSubmit}
-        render={({ handleSubmit }) => (
-          <StyledForm onSubmit={handleSubmit}>
+        onSubmit={handleSubmit}
+        render={(renderProps) => (
+          <StyledForm onSubmit={renderProps.handleSubmit}>
+            <SurveyTitle
+              title={survey.name}
+              subtitle={survey.subtitle}
+            ></SurveyTitle>
+
             {survey.questions.map((q, index) => (
               <StyledQuestionCard
                 key={q.id}
@@ -89,7 +111,7 @@ const SurveyForm: React.FC<Props> = ({ className, survey }) => {
               </StyledQuestionCard>
             ))}
 
-            <input type="submit"></input>
+            {children}
           </StyledForm>
         )}
       ></Form>
@@ -101,6 +123,7 @@ const StyledForm = styled.form`
   width: 100%;
   max-width: 600px;
   padding: 20px;
+  padding-top: 0px;
 `;
 
 const StyledQuestionCard = styled(QuestionCard)`
