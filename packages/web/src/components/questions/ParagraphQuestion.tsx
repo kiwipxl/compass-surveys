@@ -6,6 +6,7 @@ import { ParagraphQuestion } from '@compass-surveys/common';
 interface Props {
   className?: string;
   defaultValue?: string;
+  disabled?: boolean;
   question: ParagraphQuestion;
   onChange?: (value: string) => void;
 }
@@ -13,6 +14,7 @@ interface Props {
 const ParagraphQuestionComponent: React.FC<Props> = ({
   className,
   defaultValue,
+  disabled,
   question,
   onChange,
 }) => {
@@ -21,6 +23,7 @@ const ParagraphQuestionComponent: React.FC<Props> = ({
       className={className}
       defaultValue={defaultValue}
       placeholder="Your Answer"
+      disabled={disabled}
       multiline
       onChange={(ev) => onChange && onChange(ev.target.value)}
     ></TextField>

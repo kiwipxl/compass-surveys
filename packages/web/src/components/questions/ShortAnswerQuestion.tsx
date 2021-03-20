@@ -6,6 +6,7 @@ import { ShortAnswerQuestion } from '@compass-surveys/common';
 interface Props {
   className?: string;
   question: ShortAnswerQuestion;
+  disabled?: boolean;
   defaultValue?: string;
   onChange?: (value: string) => void;
 }
@@ -13,12 +14,14 @@ interface Props {
 const ShortAnswerQuestionComponent: React.FC<Props> = ({
   className,
   question,
+  disabled,
   defaultValue,
   onChange,
 }) => {
   return (
     <TextField
       className={className}
+      disabled={disabled}
       placeholder="Your Answer"
       defaultValue={defaultValue}
       onChange={(ev) => onChange && onChange(ev.target.value)}

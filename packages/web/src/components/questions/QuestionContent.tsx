@@ -10,79 +10,64 @@ import LinearScaleQuestion from './LinearScaleQuestion';
 interface Props {
   className?: string;
   question: Question;
+  disabled?: boolean;
   defaultValue?: any;
   onChange?: (value: any) => void;
 }
 
+type QuestionContentComponent =
+  | typeof ShortAnswerQuestion
+  | typeof ParagraphQuestion
+  | typeof MultipleChoiceQuestion
+  | typeof CheckboxQuestion
+  | typeof DropdownQuestion
+  | typeof LinearScaleQuestion;
+
 const QuestionContent: React.FC<Props> = ({
   className,
   question,
+  disabled,
   defaultValue,
   onChange,
 }) => {
+  let componentType: QuestionContentComponent;
+
   switch (question.type) {
     case 'short_answer':
-      return (
-        <ShortAnswerQuestion
-          className={className}
-          question={question}
-          defaultValue={defaultValue}
-          onChange={onChange}
-        ></ShortAnswerQuestion>
-      );
+      componentType = ShortAnswerQuestion;
+      break;
 
     case 'paragraph':
-      return (
-        <ParagraphQuestion
-          className={className}
-          question={question}
-          defaultValue={defaultValue}
-          onChange={onChange}
-        ></ParagraphQuestion>
-      );
+      componentType = ParagraphQuestion;
+      break;
 
     case 'multiple_choice':
-      return (
-        <MultipleChoiceQuestion
-          className={className}
-          question={question}
-          defaultValue={defaultValue}
-          onChange={onChange}
-        ></MultipleChoiceQuestion>
-      );
+      componentType = MultipleChoiceQuestion;
+      break;
 
     case 'checkbox':
-      return (
-        <CheckboxQuestion
-          className={className}
-          question={question}
-          defaultValue={defaultValue}
-          onChange={onChange}
-        ></CheckboxQuestion>
-      );
+      componentType = CheckboxQuestion;
+      break;
 
     case 'dropdown':
-      return (
-        <DropdownQuestion
-          className={className}
-          question={question}
-          defaultValue={defaultValue}
-          onChange={onChange}
-        ></DropdownQuestion>
-      );
+      componentType = DropdownQuestion;
+      break;
 
     case 'linear_scale':
-      return (
-        <LinearScaleQuestion
-          className={className}
-          question={question}
-          defaultValue={defaultValue}
-          onChange={onChange}
-        ></LinearScaleQuestion>
-      );
+      componentType = LinearScaleQuestion;
+      break;
+
+    default:
+      return <div>Invalid question type {question.type}</div>;
   }
 
-  return <div>Invalid question type {question.type}</div>;
+  return React.createElement(componentType as string, {
+    className,
+    question,
+    disabled,
+    defaultValue,
+    onChange,
+  });
 };
 
 export default QuestionContent;

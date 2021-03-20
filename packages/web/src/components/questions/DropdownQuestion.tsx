@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import { Field } from 'react-final-form';
 import { DropdownQuestion } from '@compass-surveys/common';
 
 interface Props {
   className?: string;
   question: DropdownQuestion;
+  disabled?: boolean;
   defaultValue?: string;
   onChange?: (value: string) => void;
 }
@@ -16,6 +16,7 @@ interface Props {
 const DropdownQuestionComponent: React.FC<Props> = ({
   className,
   question,
+  disabled,
   defaultValue,
   onChange,
 }) => {
@@ -25,6 +26,7 @@ const DropdownQuestionComponent: React.FC<Props> = ({
     <FormControl className={className} variant="outlined">
       <Select
         displayEmpty
+        disabled={disabled}
         value={value}
         onChange={(ev) => {
           setValue(ev.target.value as string);

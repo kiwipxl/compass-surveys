@@ -6,6 +6,7 @@ import { LinearScaleQuestion } from '@compass-surveys/common';
 interface Props {
   className?: string;
   question: LinearScaleQuestion;
+  disabled?: boolean;
   defaultValue?: number;
   onChange?: (value: number) => void;
 }
@@ -13,6 +14,7 @@ interface Props {
 const LinearScaleQuestionComponent: React.FC<Props> = ({
   className,
   question,
+  disabled,
   defaultValue,
   onChange,
 }) => {
@@ -34,6 +36,7 @@ const LinearScaleQuestionComponent: React.FC<Props> = ({
   return (
     <Slider
       className={className}
+      disabled={disabled}
       value={value}
       step={question.step || 1}
       marks={marks}

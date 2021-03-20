@@ -8,14 +8,16 @@ import OtherTextField from './OtherTextField';
 interface Props {
   className?: string;
   question: CheckboxQuestion;
+  disabled?: boolean;
   defaultValue?: string[];
   onChange?: (values: string[]) => void;
 }
 
 const CheckboxQuestionComponent: React.FC<Props> = ({
   className,
-  defaultValue,
   question,
+  disabled,
+  defaultValue,
   onChange,
 }) => {
   let defaultOtherText = '';
@@ -76,6 +78,7 @@ const CheckboxQuestionComponent: React.FC<Props> = ({
           value={choice}
           label={choice}
           checked={checked.includes(choice)}
+          disabled={disabled}
           control={<Checkbox></Checkbox>}
           onChange={(ev, isChecked) => handleCheckChange(choice, isChecked)}
         ></FormControlLabel>
@@ -85,8 +88,10 @@ const CheckboxQuestionComponent: React.FC<Props> = ({
         <FormControlLabel
           value="Other"
           checked={otherChecked}
+          disabled={disabled}
           label={
             <OtherTextField
+              disabled={disabled}
               value={otherText}
               onChange={(ev) => {
                 setOtherChecked(true);

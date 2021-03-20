@@ -55,6 +55,7 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
           >
             <QuestionContent
               question={q}
+              disabled
               defaultValue={getResponseDefaultValue(q)}
             ></QuestionContent>
           </StyledQuestionCard>

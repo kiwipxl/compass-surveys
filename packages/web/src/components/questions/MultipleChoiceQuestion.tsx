@@ -9,6 +9,7 @@ import OtherTextField from './OtherTextField';
 interface Props {
   className?: string;
   question: MultipleChoiceQuestion;
+  disabled?: boolean;
   defaultValue?: string;
   onChange?: (value: string) => void;
 }
@@ -16,6 +17,7 @@ interface Props {
 const MultipleChoiceQuestionComponent: React.FC<Props> = ({
   className,
   question,
+  disabled,
   defaultValue,
   onChange,
 }) => {
@@ -40,6 +42,7 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({
       {question.choices.map((choice) => (
         <FormControlLabel
           key={choice}
+          disabled={disabled}
           value={choice}
           label={choice}
           control={<Radio></Radio>}
@@ -50,8 +53,10 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({
         <FormControlLabel
           key="Other"
           value="Other"
+          disabled={disabled}
           label={
             <OtherTextField
+              disabled={disabled}
               onChange={(ev) => {
                 setValue('Other');
                 setOtherText(ev.target.value);
