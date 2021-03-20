@@ -9,7 +9,7 @@ interface Props {
   className?: string;
   question: CheckboxQuestion;
   defaultValue?: string[];
-  onChange: (values: string[]) => void;
+  onChange?: (values: string[]) => void;
 }
 
 const CheckboxQuestionComponent: React.FC<Props> = ({
@@ -63,7 +63,9 @@ const CheckboxQuestionComponent: React.FC<Props> = ({
     }
 
     setChecked(newChecked);
-    onChange(newChecked);
+    if (onChange) {
+      onChange(newChecked);
+    }
   };
 
   return (

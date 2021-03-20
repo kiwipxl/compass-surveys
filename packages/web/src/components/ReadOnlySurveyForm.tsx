@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Form, useForm } from 'react-final-form';
 import { Survey, Question, Response } from '@compass-surveys/common';
 import QuestionCard from './questions/QuestionCard';
+import QuestionContent from './questions/QuestionContent';
 
 interface Props {
   className?: string;
@@ -15,10 +15,6 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
   survey,
   responses,
 }) => {
-  const onSubmit = (values: any) => {
-    console.log(values);
-  };
-
   const getResponseDefaultValue = (question: Question) => {
     const values = responses
       .filter((r) => r.questionId === question.id)
@@ -49,30 +45,28 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
 
   return (
     <div className={className}>
-      <Form
-        onSubmit={onSubmit}
-        render={({ handleSubmit }) => (
-          <StyledForm onSubmit={handleSubmit}>
-            {survey.questions.map((q, index) => (
-              <StyledQuestionCard
-                key={q.id}
-                title={q.title}
-                subtitle={q.subtitle}
-                required={q.required || false}
-                question={q}
-                defaultValue={getResponseDefaultValue(q)}
-              ></StyledQuestionCard>
-            ))}
+      <Container>
+        {survey.questions.map((q, index) => (
+          <StyledQuestionCard
+            key={q.id}
+            title={q.title}
+            subtitle={q.subtitle}
+            required={q.required || false}
+          >
+            <QuestionContent
+              question={q}
+              defaultValue={getResponseDefaultValue(q)}
+            ></QuestionContent>
+          </StyledQuestionCard>
+        ))}
 
-            <input type="submit"></input>
-          </StyledForm>
-        )}
-      ></Form>
+        <input type="submit"></input>
+      </Container>
     </div>
   );
 };
 
-const StyledForm = styled.form`
+const Container = styled.div`
   width: 100%;
   max-width: 600px;
   padding: 20px;

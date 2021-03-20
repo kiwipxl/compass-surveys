@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Form } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 import { Survey, Submission, Response } from '@compass-surveys/common';
 import QuestionCard from './questions/QuestionCard';
+import QuestionContent from './questions/QuestionContent';
 import { SERVER_URL } from '../config';
 
 interface Props {
@@ -71,12 +72,21 @@ const SurveyForm: React.FC<Props> = ({ className, survey }) => {
             {survey.questions.map((q, index) => (
               <StyledQuestionCard
                 key={q.id}
-                name={`questions[${index}]`}
                 title={q.title}
                 subtitle={q.subtitle}
                 required={q.required || false}
-                question={q}
-              ></StyledQuestionCard>
+              >
+                <Field name={`questions[${index}]`}>
+                  {(props) => (
+                    <QuestionContent
+                      question={q}
+                      onChange={(value) =>
+                        props.input.onChange({ target: { value: value } })
+                      }
+                    ></QuestionContent>
+                  )}
+                </Field>
+              </StyledQuestionCard>
             ))}
 
             <input type="submit"></input>

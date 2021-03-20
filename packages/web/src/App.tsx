@@ -2,12 +2,17 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import SurveyFormPage from './pages/SurveyFormPage';
+import SurveySubmissionsPage from './pages/SurveySubmissionsPage';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <GlobalStyle></GlobalStyle>
       <Switch>
+        <Route exact path="/surveys/:surveyId/submissions">
+          <SurveySubmissionsPage></SurveySubmissionsPage>
+        </Route>
+
         <Route exact path="/surveys/:surveyId">
           <SurveyFormPage></SurveyFormPage>
         </Route>

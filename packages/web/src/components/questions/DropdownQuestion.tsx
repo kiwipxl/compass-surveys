@@ -10,7 +10,7 @@ interface Props {
   className?: string;
   question: DropdownQuestion;
   defaultValue?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 
 const DropdownQuestionComponent: React.FC<Props> = ({
@@ -28,7 +28,9 @@ const DropdownQuestionComponent: React.FC<Props> = ({
         value={value}
         onChange={(ev) => {
           setValue(ev.target.value as string);
-          onChange(ev.target.value as string);
+          if (onChange) {
+            onChange(ev.target.value as string);
+          }
         }}
       >
         <MenuItem key="" value="" disabled>

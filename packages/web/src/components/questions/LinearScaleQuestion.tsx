@@ -7,7 +7,7 @@ interface Props {
   className?: string;
   question: LinearScaleQuestion;
   defaultValue?: number;
-  onChange: (value: number) => void;
+  onChange?: (value: number) => void;
 }
 
 const LinearScaleQuestionComponent: React.FC<Props> = ({
@@ -42,7 +42,9 @@ const LinearScaleQuestionComponent: React.FC<Props> = ({
       valueLabelDisplay="auto"
       onChange={(ev, newValue) => {
         setValue(newValue as number);
-        onChange(newValue as number);
+        if (onChange) {
+          onChange(newValue as number);
+        }
       }}
     ></Slider>
   );

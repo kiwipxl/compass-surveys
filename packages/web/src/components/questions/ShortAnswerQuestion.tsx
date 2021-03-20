@@ -7,7 +7,7 @@ interface Props {
   className?: string;
   question: ShortAnswerQuestion;
   defaultValue?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 
 const ShortAnswerQuestionComponent: React.FC<Props> = ({
@@ -21,7 +21,7 @@ const ShortAnswerQuestionComponent: React.FC<Props> = ({
       className={className}
       placeholder="Your Answer"
       defaultValue={defaultValue}
-      onChange={(ev) => onChange(ev.target.value)}
+      onChange={(ev) => onChange && onChange(ev.target.value)}
     ></TextField>
   );
 };

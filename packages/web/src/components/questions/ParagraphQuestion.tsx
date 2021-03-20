@@ -7,7 +7,7 @@ interface Props {
   className?: string;
   defaultValue?: string;
   question: ParagraphQuestion;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 
 const ParagraphQuestionComponent: React.FC<Props> = ({
@@ -22,7 +22,7 @@ const ParagraphQuestionComponent: React.FC<Props> = ({
       defaultValue={defaultValue}
       placeholder="Your Answer"
       multiline
-      onChange={(ev) => onChange(ev.target.value)}
+      onChange={(ev) => onChange && onChange(ev.target.value)}
     ></TextField>
   );
 };

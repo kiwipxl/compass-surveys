@@ -10,7 +10,7 @@ interface Props {
   className?: string;
   question: MultipleChoiceQuestion;
   defaultValue?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 
 const MultipleChoiceQuestionComponent: React.FC<Props> = ({
@@ -32,10 +32,8 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({
       value={value}
       onChange={(ev, newValue) => {
         setValue(newValue);
-        if (newValue === 'Other') {
-          onChange(otherText);
-        } else {
-          onChange(newValue);
+        if (onChange) {
+          onChange(newValue === 'Other' ? otherText : newValue);
         }
       }}
     >
@@ -57,7 +55,9 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({
               onChange={(ev) => {
                 setValue('Other');
                 setOtherText(ev.target.value);
-                onChange(ev.target.value);
+                if (onChange) {
+                  onChange(ev.target.value);
+                }
               }}
             ></OtherTextField>
           }

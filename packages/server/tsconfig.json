@@ -8,7 +8,7 @@
     "alwaysStrict": false,
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
-    "strictNullChecks": false, 
+    "strictNullChecks": true, 
     "rootDir": ".",
     "outDir": "build", 
     "resolveJsonModule": true

@@ -11,10 +11,10 @@ interface Props {
   className?: string;
   question: Question;
   defaultValue?: any;
-  onChange: (value: any) => void;
+  onChange?: (value: any) => void;
 }
 
-const QuestionVariant: React.FC<Props> = ({
+const QuestionContent: React.FC<Props> = ({
   className,
   question,
   defaultValue,
@@ -85,4 +85,4 @@ const QuestionVariant: React.FC<Props> = ({
   return <div>Invalid question type {question.type}</div>;
 };
 
-export default QuestionVariant;
+export default QuestionContent;

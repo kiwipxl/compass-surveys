@@ -1,9 +1,12 @@
-import { Submission, Response } from '@compass-surveys/common';
 import short from 'short-uuid';
+import { Submission, Response } from '@compass-surveys/common';
 import { dbClient } from './index';
 import { createResponse, getAllResponses } from './responses';
+import { SubmissionDB } from './types';
 
-export async function getSubmission(submissionId: string): Promise<Submission> {
+export async function getSubmission(
+  submissionId: string,
+): Promise<Submission | null> {
   const query = {
     text: 'SELECT * from submissions WHERE id = $1',
     values: [submissionId],
@@ -14,7 +17,7 @@ export async function getSubmission(submissionId: string): Promise<Submission> {
     return null;
   }
 
-  const submission: Submission = res.rows[0];
+  const submission = new SubmissionDB(res.rows[0]).get();
   submission.responses = await getAllResponses(submission.id);
   return submission;
 }
@@ -28,9 +31,11 @@ export async function getAllSubmissions(
   };
 
   const res = await dbClient.query(query);
-  const submissions: Submission[] = res.rows;
+  const submissions: Submission[] = res.rows.map((s) =>
+    new SubmissionDB(s).get(),
+  );
 
-  for (let submission of res.rows as Submission[]) {
+  for (let submission of submissions) {
     submission.responses = await getAllResponses(submission.id);
   }
 
@@ -40,7 +45,7 @@ export async function getAllSubmissions(
 export async function createSubmission(
   surveyId: string,
   responses: Response[],
-): Promise<Submission> {
+): Promise<Submission | null> {
   const query = {
     text: `
       INSERT INTO submissions(id, survey_id, date)
@@ -53,13 +58,14 @@ export async function createSubmission(
     return null;
   }
 
-  let submission: Submission = res.rows[0];
+  const submission: Submission = new SubmissionDB(res.rows[0]).get();
   submission.responses = [];
 
-  for (const res of responses) {
-    submission.responses.push(
-      await createResponse(submission.id, res.questionId, res.value),
-    );
+  for (const r of responses) {
+    const response = await createResponse(submission.id, r.questionId, r.value);
+    if (response) {
+      submission.responses.push(response);
+    }
   }
 
   return submission;
