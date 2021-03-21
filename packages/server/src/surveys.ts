@@ -1,7 +1,6 @@
 import { Survey } from '@compass-surveys/common';
 import fs from 'fs';
 import path from 'path';
-import { __dirname } from './util';
 import { validateSchema } from './validation';
 
 export let localSurveys: Survey[] = [];

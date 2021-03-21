@@ -1,9 +1,8 @@
-import routes from './routes';
-import { createNewDatabase } from './db';
+import routes from './routes/index';
+import { createNewDatabase } from './db/index';
 import { refreshLocalSurveys } from './surveys';
 
-await createNewDatabase();
-
-refreshLocalSurveys();
-
-routes();
+createNewDatabase().then(() => {
+  refreshLocalSurveys();
+  routes();
+});

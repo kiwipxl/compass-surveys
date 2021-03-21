@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
+import process from 'process';
+import path from 'path';
 import bodyParser from 'body-parser';
 import surveys from './surveys';
 import submissions from './submissions';
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 export default () => {
   const app = express();
@@ -15,6 +17,8 @@ export default () => {
 
   app.use('/api', surveys);
   app.use('/api', submissions);
+
+  app.use(express.static(path.join(__dirname, '../../web/build')));
 
   app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`);

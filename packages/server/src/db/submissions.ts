@@ -31,7 +31,7 @@ export async function getAllSubmissions(
   };
 
   const res = await dbClient.query(query);
-  const submissions: Submission[] = res.rows.map((s) =>
+  const submissions: Submission[] = res.rows.map((s: any) =>
     new SubmissionDB(s).get(),
   );
 

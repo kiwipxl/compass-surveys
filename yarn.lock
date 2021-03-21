@@ -1616,8 +1616,11 @@ __metadata:
   resolution: "@compass-surveys/server@workspace:packages/server"
   dependencies:
     "@compass-surveys/common": 1.0.0
+    "@types/body-parser": ^1.19.0
+    "@types/cors": ^2.8.10
     "@types/express": ^4.17.11
     "@types/node": ~14.14.31
+    "@types/pg": ^7.14.11
     body-parser: ^1.19.0
     cors: ^2.8.5
     express: ^4.17.1
@@ -3531,7 +3534,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/body-parser@npm:*":
+"@types/body-parser@npm:*, @types/body-parser@npm:^1.19.0":
   version: 1.19.0
   resolution: "@types/body-parser@npm:1.19.0"
   dependencies:
@@ -3547,6 +3550,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 6f712a0408ed119a42037bcbc38c12e053d3ffe11337221a3966c9e29a21c8455e331fe2116c426361c0b2c0e44cb3fb1f83594326e42ba34ce4723d726b7d30
+  languageName: node
+  linkType: hard
+
+"@types/cors@npm:^2.8.10":
+  version: 2.8.10
+  resolution: "@types/cors@npm:2.8.10"
+  checksum: c3f3d6feee59ff75127fec3030d55c3d5f1adfc07953facdae67c47dcd54c83c46a5e92f08afa53542ec978da38a388697d30731019798cb157c9e96c64ef6c3
   languageName: node
   linkType: hard
 
@@ -3744,6 +3754,17 @@ __metadata:
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: 4a8f720afac47b474d3f2eece312340e72bc31bc9561cda37b596ce2ed218c0099765d302625bb67d659a8452a1f93d514f4863c11c7ebaf65430428687dc426
+  languageName: node
+  linkType: hard
+
+"@types/pg@npm:^7.14.11":
+  version: 7.14.11
+  resolution: "@types/pg@npm:7.14.11"
+  dependencies:
+    "@types/node": "*"
+    pg-protocol: ^1.2.0
+    pg-types: ^2.2.0
+  checksum: 215f6e64416db9582fc502edcc3700d5ff542a96cb6f764d558a8e8610d24ef8fccd48d849110021a28c94ad7def57ba212985d6fb681db7f5af59ec8f32f5fb
   languageName: node
   linkType: hard
 
@@ -14152,14 +14173,14 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"pg-protocol@npm:^1.4.0":
+"pg-protocol@npm:^1.2.0, pg-protocol@npm:^1.4.0":
   version: 1.4.0
   resolution: "pg-protocol@npm:1.4.0"
   checksum: 2b5ebfccd014a4a9127a04e34a423a9e7fe6f6b96c32698929e0860e32c453e64438c935068405ee923ab99788345b9591a6dbaa30bba70e724d7fc4d5f5d21e
   languageName: node
   linkType: hard
 
-"pg-types@npm:^2.1.0":
+"pg-types@npm:^2.1.0, pg-types@npm:^2.2.0":
   version: 2.2.0
   resolution: "pg-types@npm:2.2.0"
   dependencies:
@@ -16609,6 +16630,7 @@ resolve@1.18.1:
   dependencies:
     lerna: ^4.0.0
     prettier: ^2.2.1
+    typescript: ^4.2.3
   languageName: unknown
   linkType: soft
 

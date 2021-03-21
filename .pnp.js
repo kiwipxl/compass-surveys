@@ -53,7 +53,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["lerna", "npm:4.0.0"],
-            ["prettier", "npm:2.2.1"]
+            ["prettier", "npm:2.2.1"],
+            ["typescript", "patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=a45b0e"]
           ],
           "linkType": "SOFT",
         }]
@@ -4049,8 +4050,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@compass-surveys/server", "workspace:packages/server"],
             ["@compass-surveys/common", "workspace:packages/common"],
+            ["@types/body-parser", "npm:1.19.0"],
+            ["@types/cors", "npm:2.8.10"],
             ["@types/express", "npm:4.17.11"],
             ["@types/node", "npm:14.14.35"],
+            ["@types/pg", "npm:7.14.11"],
             ["body-parser", "npm:1.19.0"],
             ["cors", "npm:2.8.5"],
             ["express", "npm:4.17.1"],
@@ -6359,6 +6363,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/cors", [
+        ["npm:2.8.10", {
+          "packageLocation": "./.yarn/cache/@types-cors-npm-2.8.10-53b686e0da-c3f3d6feee.zip/node_modules/@types/cors/",
+          "packageDependencies": [
+            ["@types/cors", "npm:2.8.10"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/eslint", [
         ["npm:7.2.7", {
           "packageLocation": "./.yarn/cache/@types-eslint-npm-7.2.7-ffc5c79dcb-cb7b820d88.zip/node_modules/@types/eslint/",
@@ -6586,6 +6599,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-parse-json-npm-4.0.0-298522afa6-4a8f720afa.zip/node_modules/@types/parse-json/",
           "packageDependencies": [
             ["@types/parse-json", "npm:4.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/pg", [
+        ["npm:7.14.11", {
+          "packageLocation": "./.yarn/cache/@types-pg-npm-7.14.11-ece1b5ae53-215f6e6441.zip/node_modules/@types/pg/",
+          "packageDependencies": [
+            ["@types/pg", "npm:7.14.11"],
+            ["@types/node", "npm:14.14.35"],
+            ["pg-protocol", "npm:1.4.0"],
+            ["pg-types", "npm:2.2.0"]
           ],
           "linkType": "HARD",
         }]
@@ -21519,7 +21544,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["root-workspace-0b6124", "workspace:."],
             ["lerna", "npm:4.0.0"],
-            ["prettier", "npm:2.2.1"]
+            ["prettier", "npm:2.2.1"],
+            ["typescript", "patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=a45b0e"]
           ],
           "linkType": "SOFT",
         }]

@@ -1,5 +1,4 @@
 import express from 'express';
-import { __dirname } from '../util';
 import { getLocalSurvey } from '../surveys';
 import {
   createSubmission,
