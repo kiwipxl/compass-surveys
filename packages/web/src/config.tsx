@@ -1,6 +1,7 @@
-import process from 'process';
+export const SERVER_URL: string = process.env.REACT_APP_API_URL as string;
 
-export const SERVER_URL =
-  process.env.WEB_SERVER_URL || 'http://localhost:4000/api/';
-
-console.log(`Using server url at ${SERVER_URL}`);
+if (SERVER_URL) {
+  console.log(`using server url ${SERVER_URL}`);
+} else {
+  console.error('no server url was defined!');
+}
