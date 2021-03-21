@@ -18,7 +18,10 @@ export default () => {
   app.use('/api', surveys);
   app.use('/api', submissions);
 
-  app.use(express.static(path.join(__dirname, '../../web/build')));
+  const webPath = path.join(__dirname, '../../../web/build');
+  console.log(`serving web app from '${webPath}'`);
+  app.use(express.static(webPath));
+  app.get('/', (req, res) => res.send('/index.html'));
 
   app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`);

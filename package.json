@@ -10,7 +10,7 @@
 	},
 	"scripts": {
 		"build": "yarn workspaces foreach run build",
-		"start": "yarn workspaces server start"
+		"start": "yarn workspace @compass-surveys/server start"
 	},
 	"dependencies": {
 		"typescript": "^4.2.3"
