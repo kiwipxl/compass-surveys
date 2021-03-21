@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@compass-surveys/common": "1.0.0",
+    "@drdgvhbh/postgres-error-codes": "^0.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",

@@ -28,7 +28,7 @@ export async function getAllResponses(
   };
 
   const res = await dbClient.query(query);
-  return res.rows.map((r) => new ResponseDB(r).get());
+  return res.rows.map((r: any) => new ResponseDB(r).get());
 }
 
 export async function createResponse(

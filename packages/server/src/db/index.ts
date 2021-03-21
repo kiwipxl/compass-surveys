@@ -2,33 +2,41 @@ import pg from 'pg';
 const { Pool } = pg;
 import process from 'process';
 
-let connectionString: string = process.env.DATABASE_URL as string;
+let prod: boolean = process.env.NODE_ENV === 'production';
 
-/*
-By default node-postgres uses the following environment variables to
-configure a connection.
-
-{
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE, 
-  password: process.env.PGPASSWORD, 
-  port: process.env.PGPORT
+let client: any;
+if (prod) {
+  // Connect to the production database.
+  // https://devcenter.heroku.com/articles/heroku-postgresql#connecting-in-node-js
+  client = new Pool({
+    connectionString: process.env.DATABASE_URL as string,
+    ssl: { rejectUnauthorized: false },
+  });
+} else {
+  /*
+  By default node-postgres uses the following environment variables to
+  configure a connection.
+  
+  {
+    user: process.env.PGUSER,
+    host: process.env.PGHOST,
+    database: process.env.PGDATABASE, 
+    password: process.env.PGPASSWORD, 
+    port: process.env.PGPORT
+  }
+  */
+  client = new Pool();
 }
 
-If we have DATABASE_URL set however (such as when using heroku in a production environment), we'll
-use that instead.
-*/
-export const dbClient = new Pool({
-  connectionString: connectionString,
-
-  // https://devcenter.heroku.com/articles/heroku-postgresql#connecting-in-node-js
-  ssl: { rejectUnauthorized: false },
-});
+export const dbClient = client;
 
 export async function connect() {
-  if (connectionString) {
-    console.log(`connecting to database '${connectionString as string}'`);
+  if (prod) {
+    console.log(
+      `connecting to production database '${
+        process.env.DATABASE_URL as string
+      }'`,
+    );
   } else {
     console.log(
       `connecting to database '${process.env.PGDATABASE}' at ${process.env.PGHOST}:${process.env.PGPORT} with user '${process.env.PGUSER}'`,

@@ -1616,6 +1616,7 @@ __metadata:
   resolution: "@compass-surveys/server@workspace:packages/server"
   dependencies:
     "@compass-surveys/common": 1.0.0
+    "@drdgvhbh/postgres-error-codes": ^0.0.6
     "@types/body-parser": ^1.19.0
     "@types/cors": ^2.8.10
     "@types/express": ^4.17.11
@@ -1679,6 +1680,13 @@ __metadata:
   version: 10.1.0
   resolution: "@csstools/normalize.css@npm:10.1.0"
   checksum: 75d6c92d2ed1c643dd3f33c07feda78983790717c1b03c8b6a35215feac571d1d79e65a3668774eb420bd352651a2c33afd53cd580a25e93b6c6fd8bb0756071
+  languageName: node
+  linkType: hard
+
+"@drdgvhbh/postgres-error-codes@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@drdgvhbh/postgres-error-codes@npm:0.0.6"
+  checksum: 160bdeb3f0c576a7208776d7a985a75071dca017b31615e36b47b68cd55114cac16d826749bf7e39c615a1ca6fb7d236f4e0ab6a7a957802d141ed2b1e10ce71
   languageName: node
   linkType: hard
 

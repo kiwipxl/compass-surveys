@@ -4050,6 +4050,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@compass-surveys/server", "workspace:packages/server"],
             ["@compass-surveys/common", "workspace:packages/common"],
+            ["@drdgvhbh/postgres-error-codes", "npm:0.0.6"],
             ["@types/body-parser", "npm:1.19.0"],
             ["@types/cors", "npm:2.8.10"],
             ["@types/express", "npm:4.17.11"],
@@ -4119,6 +4120,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@csstools-normalize.css-npm-10.1.0-6bffb006f2-75d6c92d2e.zip/node_modules/@csstools/normalize.css/",
           "packageDependencies": [
             ["@csstools/normalize.css", "npm:10.1.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@drdgvhbh/postgres-error-codes", [
+        ["npm:0.0.6", {
+          "packageLocation": "./.yarn/cache/@drdgvhbh-postgres-error-codes-npm-0.0.6-ae1b7d0496-160bdeb3f0.zip/node_modules/@drdgvhbh/postgres-error-codes/",
+          "packageDependencies": [
+            ["@drdgvhbh/postgres-error-codes", "npm:0.0.6"]
           ],
           "linkType": "HARD",
         }]
