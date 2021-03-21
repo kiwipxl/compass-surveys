@@ -19,7 +19,12 @@ configure a connection.
 If we have DATABASE_URL set however (such as when using heroku in a production environment), we'll
 use that instead.
 */
-export const dbClient = new Pool({ connectionString: connectionString });
+export const dbClient = new Pool({
+  connectionString: connectionString,
+
+  // https://devcenter.heroku.com/articles/heroku-postgresql#connecting-in-node-js
+  ssl: { rejectUnauthorized: false },
+});
 
 export async function connect() {
   if (connectionString) {
