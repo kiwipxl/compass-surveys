@@ -2,6 +2,8 @@ import pg from 'pg';
 const { Pool } = pg;
 import process from 'process';
 
+let connectionString: string = process.env.DATABASE_URL as string;
+
 /*
 By default node-postgres uses the following environment variables to
 configure a connection.
@@ -13,13 +15,20 @@ configure a connection.
   password: process.env.PGPASSWORD, 
   port: process.env.PGPORT
 }
+
+If we have DATABASE_URL set however (such as when using heroku in a production environment), we'll
+use that instead.
 */
-export const dbClient = new Pool();
+export const dbClient = new Pool({ connectionString: connectionString });
 
 export async function connect() {
-  console.log(
-    `connecting to database '${process.env.PGDATABASE}' at ${process.env.PGHOST}:${process.env.PGPORT} with user '${process.env.PGUSER}'`,
-  );
+  if (connectionString) {
+    console.log(`connecting to database '${connectionString as string}'`);
+  } else {
+    console.log(
+      `connecting to database '${process.env.PGDATABASE}' at ${process.env.PGHOST}:${process.env.PGPORT} with user '${process.env.PGUSER}'`,
+    );
+  }
   return await dbClient.connect();
 }
 
