@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { useParams, useHistory } from 'react-router-dom';
-import useFetch from 'use-http';
+import useFetch, { CachePolicies } from 'use-http';
 import { SERVER_URL } from '../config';
 import ReadOnlySurveyForm from '../components/survey/ReadOnlySurveyForm';
 import Status from '../components/Status';
@@ -23,11 +23,17 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
     error: surveyLoadError,
     data: survey,
   } = useFetch(`${SERVER_URL}/surveys/${surveyId}`, {}, []);
+
   const {
     loading: submissionsLoading,
     error: submissionsLoadError,
     data: submissions,
-  } = useFetch(`${SERVER_URL}/surveys/${surveyId}/submissions`, {}, []);
+  } = useFetch(
+    `${SERVER_URL}/surveys/${surveyId}/submissions`,
+    { cachePolicy: CachePolicies.NO_CACHE },
+    [],
+  );
+
   const [submissionIndex, setSubmissionIndex] = React.useState(0);
 
   return (
@@ -62,30 +68,39 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
           !submissionsLoading &&
           !submissionsLoadError &&
           submissions.length > 0 && (
-            <ReadOnlySurveyForm
-              key={submissionIndex}
-              survey={survey}
-              responses={submissions[submissionIndex].responses}
-            >
-              <FormActions>
-                <BackButton
-                  color="secondary"
-                  variant="contained"
-                  onClick={() => routerHistory.goBack()}
-                >
-                  Back
-                </BackButton>
+            <div>
+              <StyledPaginationButtons
+                page={submissionIndex}
+                maxPages={submissions.length}
+                onPrev={(newPage) => setSubmissionIndex(newPage)}
+                onNext={(newPage) => setSubmissionIndex(newPage)}
+              ></StyledPaginationButtons>
 
-                <ButtonSpacing></ButtonSpacing>
+              <ReadOnlySurveyForm
+                key={submissionIndex}
+                survey={survey}
+                responses={submissions[submissionIndex].responses}
+              >
+                <FormActions>
+                  <BackButton
+                    color="secondary"
+                    variant="contained"
+                    onClick={() => routerHistory.goBack()}
+                  >
+                    Back
+                  </BackButton>
 
-                <StyledPaginationButtons
-                  page={submissionIndex}
-                  maxPages={submissions.length}
-                  onPrev={(newPage) => setSubmissionIndex(newPage)}
-                  onNext={(newPage) => setSubmissionIndex(newPage)}
-                ></StyledPaginationButtons>
-              </FormActions>
-            </ReadOnlySurveyForm>
+                  <ButtonSpacing></ButtonSpacing>
+
+                  <StyledPaginationButtons
+                    page={submissionIndex}
+                    maxPages={submissions.length}
+                    onPrev={(newPage) => setSubmissionIndex(newPage)}
+                    onNext={(newPage) => setSubmissionIndex(newPage)}
+                  ></StyledPaginationButtons>
+                </FormActions>
+              </ReadOnlySurveyForm>
+            </div>
           )}
       </Container>
     </div>

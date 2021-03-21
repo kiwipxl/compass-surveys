@@ -40,7 +40,9 @@ const CheckboxQuestionComponent: React.FC<Props> = ({
     return [];
   });
 
-  const [otherChecked, setOtherChecked] = React.useState(false);
+  const [otherChecked, setOtherChecked] = React.useState(
+    defaultOtherText.length > 0,
+  );
   const [otherText, setOtherText] = React.useState(defaultOtherText);
 
   if (question.choices.length === 0) {

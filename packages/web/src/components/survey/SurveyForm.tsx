@@ -31,11 +31,10 @@ const SurveyForm: React.FC<Props> = ({
     submitting: false,
   });
 
-  React.useEffect(() => {
-    if (onSubmitStateChange) {
-      onSubmitStateChange(submitState);
-    }
-  }, [submitState]);
+  React.useEffect(
+    () => onSubmitStateChange && onSubmitStateChange(submitState),
+    [submitState, onSubmitStateChange],
+  );
 
   const handleSubmit = (values: any) => {
     let responses: Response[] = [];

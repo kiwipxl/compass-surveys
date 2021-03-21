@@ -31,7 +31,7 @@ const SurveyListItem: React.FC<Props> = ({ className, id, name, subtitle }) => {
             variant="outlined"
             onClick={() => routerHistory.push(`/surveys/${id}/submissions`)}
           >
-            Responses
+            Submissions
           </Button>
 
           <StartButton
