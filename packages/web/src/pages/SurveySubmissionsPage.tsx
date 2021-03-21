@@ -34,12 +34,15 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
     [],
   );
 
+  const loading = surveyLoading || submissionsLoading;
+  const error = surveyLoadError || submissionsLoadError;
+
   const [submissionIndex, setSubmissionIndex] = React.useState(0);
 
   return (
     <div className={className}>
       <Container>
-        {(surveyLoadError || submissionsLoadError) && (
+        {error && (
           <div>
             <ErrorStatus
               message={
@@ -52,56 +55,50 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
           </div>
         )}
 
-        {submissions && submissions.length === 0 && (
+        {!loading && !error && submissions.length === 0 && (
           <div>
             <Status message="No submissions found."></Status>
             <StatusActions></StatusActions>
           </div>
         )}
 
-        {surveyLoading && !surveyLoadError && (
-          <Status message="Loading..." loading></Status>
+        {loading && !error && <Status message="Loading..." loading></Status>}
+
+        {!loading && !error && submissions.length > 0 && (
+          <div>
+            <StyledPaginationButtons
+              page={submissionIndex}
+              maxPages={submissions.length}
+              onPrev={(newPage) => setSubmissionIndex(newPage)}
+              onNext={(newPage) => setSubmissionIndex(newPage)}
+            ></StyledPaginationButtons>
+
+            <ReadOnlySurveyForm
+              key={submissionIndex}
+              survey={survey}
+              responses={submissions[submissionIndex].responses}
+            >
+              <FormActions>
+                <BackButton
+                  color="secondary"
+                  variant="contained"
+                  onClick={() => routerHistory.goBack()}
+                >
+                  Back
+                </BackButton>
+
+                <ButtonSpacing></ButtonSpacing>
+
+                <StyledPaginationButtons
+                  page={submissionIndex}
+                  maxPages={submissions.length}
+                  onPrev={(newPage) => setSubmissionIndex(newPage)}
+                  onNext={(newPage) => setSubmissionIndex(newPage)}
+                ></StyledPaginationButtons>
+              </FormActions>
+            </ReadOnlySurveyForm>
+          </div>
         )}
-
-        {!surveyLoading &&
-          !surveyLoadError &&
-          !submissionsLoading &&
-          !submissionsLoadError &&
-          submissions.length > 0 && (
-            <div>
-              <StyledPaginationButtons
-                page={submissionIndex}
-                maxPages={submissions.length}
-                onPrev={(newPage) => setSubmissionIndex(newPage)}
-                onNext={(newPage) => setSubmissionIndex(newPage)}
-              ></StyledPaginationButtons>
-
-              <ReadOnlySurveyForm
-                key={submissionIndex}
-                survey={survey}
-                responses={submissions[submissionIndex].responses}
-              >
-                <FormActions>
-                  <BackButton
-                    color="secondary"
-                    variant="contained"
-                    onClick={() => routerHistory.goBack()}
-                  >
-                    Back
-                  </BackButton>
-
-                  <ButtonSpacing></ButtonSpacing>
-
-                  <StyledPaginationButtons
-                    page={submissionIndex}
-                    maxPages={submissions.length}
-                    onPrev={(newPage) => setSubmissionIndex(newPage)}
-                    onNext={(newPage) => setSubmissionIndex(newPage)}
-                  ></StyledPaginationButtons>
-                </FormActions>
-              </ReadOnlySurveyForm>
-            </div>
-          )}
       </Container>
     </div>
   );
@@ -116,7 +113,7 @@ const Container = styled.div`
 
 const FormActions = styled.div`
   display: flex;
-  margin: 20px;
+  margin-bottom: 40px;
   width: 100%;
   max-width: 600px;
 `;

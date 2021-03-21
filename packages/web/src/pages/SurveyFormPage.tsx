@@ -101,6 +101,7 @@ const Container = styled.div`
 
 const FormActions = styled.div`
   display: flex;
+  margin-bottom: 40px;
 `;
 
 const BackButton = styled(Button)`
