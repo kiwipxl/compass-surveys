@@ -1,84 +1,103 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
+import useFetch from 'use-http';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import { Alert } from '@material-ui/lab';
 import { useParams } from 'react-router-dom';
-import { Survey, Submission } from '@compass-surveys/common';
+import { Survey } from '@compass-surveys/common';
 import { SERVER_URL } from '../config';
-import SurveyForm from '../components/survey/SurveyForm';
+import SurveyForm, { SubmitState } from '../components/survey/SurveyForm';
 import SurveyFormSubmitted from '../components/survey/SurveyFormSubmitted';
 import Status from '../components/Status';
+import ErrorStatus from '../components/ErrorStatus';
+import StatusActions from '../components/StatusActions';
 
 interface Props {
   className?: string;
 }
 
-interface SubmitState {
-  submitting: boolean;
-  submission: Submission | null;
-}
-
 const SurveyFormPage: React.FC<Props> = ({ className }) => {
   let { surveyId } = useParams<{ surveyId: string }>();
-  const [survey, setSurvey] = React.useState<Survey>();
+  const { loading, error, data: survey } = useFetch<Survey>(
+    `${SERVER_URL}/surveys/${surveyId}`,
+    {},
+    [],
+  );
+
   const routerHistory = useHistory();
+
+  const [showSubmitError, setShowSubmitError] = React.useState(false);
   const [submitState, setSubmitState] = React.useState<SubmitState>({
     submitting: false,
-    submission: null,
   });
-
-  React.useEffect(() => {
-    fetch(`${SERVER_URL}/surveys/${surveyId}`)
-      .then((res) => res.json())
-      .then((obj) => {
-        setSurvey(obj);
-      });
-  }, [surveyId]);
-
-  const handleSubmit = () => {
-    setSubmitState({ submitting: true, submission: null });
-  };
-
-  const handleSubmitComplete = (submission: Submission) => {
-    setSubmitState({ submitting: false, submission: submission });
-  };
 
   return (
     <div className={className}>
-      {!survey && <Status message="Loading..."></Status>}
-
-      {submitState.submitting && <Status message="Submitting..."></Status>}
-
-      {survey && submitState.submission && (
-        <SurveyFormSubmitted title={survey.name}></SurveyFormSubmitted>
-      )}
-
-      {survey && !submitState.submitting && !submitState.submission && (
-        <SurveyForm
-          survey={survey}
-          onSubmit={handleSubmit}
-          onSubmitComplete={handleSubmitComplete}
+      <Container>
+        <Snackbar
+          open={showSubmitError}
+          autoHideDuration={3000}
+          onClose={() => setShowSubmitError(false)}
         >
-          <FormActions>
-            <BackButton
-              color="secondary"
-              variant="contained"
-              onClick={() => routerHistory.goBack()}
+          <Alert severity="error" onClose={() => setShowSubmitError(false)}>
+            {submitState.error && submitState.error.message}
+          </Alert>
+        </Snackbar>
+
+        {error && (
+          <div>
+            <ErrorStatus message={error.message}></ErrorStatus>
+            <StatusActions></StatusActions>
+          </div>
+        )}
+
+        {loading && !error && <Status message="Loading..." loading></Status>}
+
+        {survey && submitState.submission && (
+          <SurveyFormSubmitted title={survey.name}></SurveyFormSubmitted>
+        )}
+
+        {!loading && !error && !submitState.submission && (
+          <div>
+            <SurveyForm
+              survey={survey as Survey}
+              onSubmitStateChange={(state) => {
+                setSubmitState(state);
+                setShowSubmitError(state.error !== undefined);
+              }}
+              disabled={submitState.submitting}
             >
-              Back
-            </BackButton>
+              <FormActions>
+                <BackButton
+                  color="secondary"
+                  variant="contained"
+                  onClick={() => routerHistory.goBack()}
+                >
+                  Back
+                </BackButton>
 
-            <ButtonSpacing></ButtonSpacing>
+                <ButtonSpacing></ButtonSpacing>
 
-            <SubmitButton type="submit" color="primary" variant="contained">
-              Submit
-            </SubmitButton>
-          </FormActions>
-        </SurveyForm>
-      )}
+                <SubmitButton type="submit" color="primary" variant="contained">
+                  Submit
+                </SubmitButton>
+              </FormActions>
+            </SurveyForm>
+          </div>
+        )}
+      </Container>
     </div>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const FormActions = styled.div`
   display: flex;
@@ -102,6 +121,4 @@ export default styled(SurveyFormPage)`
   width: 100%;
   margin-top: 40px;
   margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
 `;

@@ -20,8 +20,15 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({
   defaultValue,
   onChange,
 }) => {
+  let defaultOtherText = '';
+
+  if (question.otherChoice && defaultValue) {
+    defaultOtherText = defaultValue;
+    defaultValue = 'Other';
+  }
+
   const [value, setValue] = React.useState(defaultValue || '');
-  const [otherText, setOtherText] = React.useState('');
+  const [otherText, setOtherText] = React.useState(defaultOtherText || '');
 
   if (question.choices.length === 0) {
     return <div>No choices given!</div>;
@@ -55,6 +62,7 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({
           disabled={disabled}
           label={
             <OtherTextField
+              value={otherText}
               disabled={disabled}
               onChange={(ev) => {
                 setValue('Other');

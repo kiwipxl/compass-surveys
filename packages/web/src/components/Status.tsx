@@ -1,25 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 interface Props {
   className?: string;
+  title?: string;
   message: string;
+  loading?: boolean;
 }
 
-const Status: React.FC<Props> = ({ className, message }) => {
+const Status: React.FC<Props> = ({
+  className,
+  title,
+  message,
+  loading,
+  children,
+}) => {
   return (
     <div className={className}>
-      <Typography variant="h5">{message}</Typography>
-      <StyledCircularProgress></StyledCircularProgress>
+      <Alert
+        variant="outlined"
+        severity="info"
+        action={loading && <CircularProgress></CircularProgress>}
+      >
+        <AlertTitle>{title}</AlertTitle>
+
+        {message}
+
+        {children}
+      </Alert>
     </div>
   );
 };
-
-const StyledCircularProgress = styled(CircularProgress)`
-  margin-left: 50px;
-`;
 
 export default styled(Status)`
   display: flex;

@@ -47,48 +47,31 @@ const ReadOnlySurveyForm: React.FC<Props> = ({
 
   return (
     <div className={className}>
-      <Container>
-        <SurveyTitle
-          title={survey.name}
-          subtitle={survey.subtitle}
-        ></SurveyTitle>
+      <SurveyTitle title={survey.name} subtitle={survey.subtitle}></SurveyTitle>
 
-        {survey.questions.map((q, index) => (
-          <StyledQuestionCard
-            key={q.id}
-            title={q.title}
-            subtitle={q.subtitle}
-            required={q.required || false}
-          >
-            <QuestionContent
-              question={q}
-              disabled
-              defaultValue={getResponseDefaultValue(q)}
-            ></QuestionContent>
-          </StyledQuestionCard>
-        ))}
+      {survey.questions.map((q, index) => (
+        <StyledQuestionCard
+          key={q.id}
+          title={q.title}
+          subtitle={q.subtitle}
+          required={q.required || false}
+        >
+          <QuestionContent
+            question={q}
+            disabled
+            defaultValue={getResponseDefaultValue(q)}
+          ></QuestionContent>
+        </StyledQuestionCard>
+      ))}
 
-        {children}
-      </Container>
+      {children}
     </div>
   );
 };
-
-const Container = styled.div`
-  width: 100%;
-  max-width: 600px;
-  padding: 20px;
-  padding-top: 0px;
-`;
 
 const StyledQuestionCard = styled(QuestionCard)`
   margin-top: 25px;
   margin-bottom: 25px;
 `;
 
-export default styled(ReadOnlySurveyForm)`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export default styled(ReadOnlySurveyForm)``;

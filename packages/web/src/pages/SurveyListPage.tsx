@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Survey } from '@compass-surveys/common';
 import { SERVER_URL } from '../config';
+import useFetch from 'use-http';
+import { Survey } from '@compass-surveys/common';
 import Status from '../components/Status';
+import ErrorStatus from '../components/ErrorStatus';
 import SurveyList from '../components/survey/SurveyList';
 import logo from '../assets/logo.png';
 
@@ -11,15 +13,11 @@ interface Props {
 }
 
 const SurveyListPage: React.FC<Props> = ({ className }) => {
-  const [surveys, setSurveys] = React.useState<Survey[]>();
-
-  React.useEffect(() => {
-    fetch(`${SERVER_URL}/surveys`)
-      .then((res) => res.json())
-      .then((obj) => {
-        setSurveys(obj);
-      });
-  }, []);
+  const { loading, error, data: surveys } = useFetch<Survey[]>(
+    `${SERVER_URL}/surveys`,
+    {},
+    [],
+  );
 
   return (
     <div className={className}>
@@ -28,12 +26,12 @@ const SurveyListPage: React.FC<Props> = ({ className }) => {
       </LogoContainer>
 
       <Content>
-        {!surveys && <Status message="Loading..."></Status>}
+        {error && <ErrorStatus message={error.message}></ErrorStatus>}
 
-        {surveys && (
-          <Container>
-            <SurveyList surveys={surveys}></SurveyList>
-          </Container>
+        {loading && !error && <Status message="Loading..." loading></Status>}
+
+        {!loading && !error && surveys && (
+          <SurveyList surveys={surveys}></SurveyList>
         )}
       </Content>
     </div>
@@ -41,21 +39,21 @@ const SurveyListPage: React.FC<Props> = ({ className }) => {
 };
 
 const LogoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: -40px;
+  margin-top: -20px;
   margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Logo = styled.img`
-  max-width: 800px;
+  width: 100%;
 `;
 
 const Content = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Container = styled.div`

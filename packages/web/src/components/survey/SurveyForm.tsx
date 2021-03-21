@@ -10,17 +10,33 @@ import SurveyTitle from './SurveyTitle';
 interface Props {
   className?: string;
   survey: Survey;
-  onSubmit: () => void;
-  onSubmitComplete: (submission: Submission) => void;
+  disabled?: boolean;
+  onSubmitStateChange?: (state: SubmitState) => void;
+}
+
+export interface SubmitState {
+  submitting: boolean;
+  submission?: Submission;
+  error?: Error;
 }
 
 const SurveyForm: React.FC<Props> = ({
   className,
   survey,
-  onSubmit,
-  onSubmitComplete,
+  disabled,
+  onSubmitStateChange,
   children,
 }) => {
+  const [submitState, setSubmitState] = React.useState<SubmitState>({
+    submitting: false,
+  });
+
+  React.useEffect(() => {
+    if (onSubmitStateChange) {
+      onSubmitStateChange(submitState);
+    }
+  }, [submitState]);
+
   const handleSubmit = (values: any) => {
     let responses: Response[] = [];
 
@@ -61,9 +77,11 @@ const SurveyForm: React.FC<Props> = ({
       responses: responses,
     };
 
-    if (onSubmit) {
-      onSubmit();
-    }
+    setSubmitState({
+      submitting: true,
+      submission: undefined,
+      error: undefined,
+    });
 
     fetch(`${SERVER_URL}/surveys/${survey.id}/submissions`, {
       headers: {
@@ -73,19 +91,29 @@ const SurveyForm: React.FC<Props> = ({
       body: JSON.stringify(submission),
     })
       .then((res) => res.json())
-      .then((json) => {
-        if (onSubmitComplete) {
-          onSubmitComplete(json);
-        }
+      .then((res) => {
+        setSubmitState({
+          submitting: false,
+          submission: res,
+          error: undefined,
+        });
+      })
+      .catch((err) => {
+        setSubmitState({
+          submitting: false,
+          submission: undefined,
+          error: err,
+        });
       });
   };
 
   return (
     <div className={className}>
       <Form
+        name="test"
         onSubmit={handleSubmit}
         render={(renderProps) => (
-          <StyledForm onSubmit={renderProps.handleSubmit}>
+          <form onSubmit={renderProps.handleSubmit}>
             <SurveyTitle
               title={survey.name}
               subtitle={survey.subtitle}
@@ -102,6 +130,7 @@ const SurveyForm: React.FC<Props> = ({
                   {(props) => (
                     <QuestionContent
                       question={q}
+                      disabled={disabled}
                       onChange={(value) =>
                         props.input.onChange({ target: { value: value } })
                       }
@@ -112,28 +141,16 @@ const SurveyForm: React.FC<Props> = ({
             ))}
 
             {children}
-          </StyledForm>
+          </form>
         )}
       ></Form>
     </div>
   );
 };
 
-const StyledForm = styled.form`
-  width: 100%;
-  max-width: 600px;
-  padding: 20px;
-  padding-top: 0px;
-`;
-
 const StyledQuestionCard = styled(QuestionCard)`
   margin-top: 25px;
   margin-bottom: 25px;
 `;
 
-export default styled(SurveyForm)`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export default styled(SurveyForm)``;
