@@ -4058,6 +4058,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/pg", "npm:7.14.11"],
             ["body-parser", "npm:1.19.0"],
             ["cors", "npm:2.8.5"],
+            ["dotenv", "npm:8.2.0"],
             ["express", "npm:4.17.1"],
             ["jsonschema", "npm:1.4.0"],
             ["nodemon", "npm:2.0.7"],

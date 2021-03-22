@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+// Loads .env config and puts all the values into process.env. This must be the first thing we do!
+dotenv.config();
+
 import routes from './routes/index';
 import { dbClient, connect, createNewDatabase } from './db/index';
 import { refreshLocalSurveys } from './surveys';
