@@ -13,6 +13,7 @@
 ## What this is 🤷‍♀️
 
 The app lets you respond to surveys and see all responses for every survey.
+
 There is no survey creation GUI. Surveys are described as JSON and put in the `/packages/server/surveys` folder. They are validated using JSON schema.
 
 ## Project structure 🏗
