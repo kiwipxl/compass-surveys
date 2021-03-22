@@ -47,6 +47,7 @@ router.post('/surveys/:surveyId/submissions', async (req, res) => {
     return;
   }
 
+  // Validate schema so that the client doesn't send us bad Submission data
   const validateRes = validateSchema(req.body, '#/definitions/Submission');
   if (!validateRes.valid) {
     res.status(400);

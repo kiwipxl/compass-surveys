@@ -5,14 +5,18 @@ import { validateSchema } from './validation';
 
 export let localSurveys: Survey[] = [];
 
+// Reads all surveys from the '/surveys' directory, validates them, and updates
+// our localSurveys list.
 export function refreshLocalSurveys() {
   const surveys: Survey[] = [];
   const surveysDir = path.join(__dirname, '../surveys');
 
   for (const name of fs.readdirSync(surveysDir)) {
+    // Read survey.json
     const surveyObject = JSON.parse(
       fs.readFileSync(path.join(surveysDir, name), 'utf8'),
     );
+    // Validate schema
     const validationRes = validateSchema(surveyObject, '#/definitions/Survey');
 
     if (validationRes.valid) {

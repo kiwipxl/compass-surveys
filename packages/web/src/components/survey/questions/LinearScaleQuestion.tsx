@@ -21,6 +21,8 @@ const LinearScaleQuestionComponent: React.FC<Props> = ({
     defaultValue || question.default || question.min,
   );
 
+  // See the following link for Slider documentation and how we're using it here.
+  // https://material-ui.com/components/slider/
   const marks = [
     {
       value: question.min,

@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
+/*
+  Shows an error alert to the user.
+*/
+
 interface Props {
   className?: string;
   title?: string;

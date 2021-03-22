@@ -22,12 +22,18 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({
 }) => {
   let defaultOtherText = '';
 
+  // Sets the default text to display for the "Other" textfield.
+  // We only do this if it's enabled & our default value is an
+  // option value (option that isn't included in question options).
   if (question.otherChoice && defaultValue) {
-    defaultOtherText = defaultValue;
-    defaultValue = 'Other';
+    if (!question.choices.includes(defaultValue)) {
+      defaultOtherText = defaultValue;
+      defaultValue = 'Other';
+    }
   }
 
   const [value, setValue] = React.useState(defaultValue || '');
+  // The textfield of the 'Other' option
   const [otherText, setOtherText] = React.useState(defaultOtherText || '');
 
   if (question.choices.length === 0) {
@@ -55,6 +61,7 @@ const MultipleChoiceQuestionComponent: React.FC<Props> = ({
         ></FormControlLabel>
       ))}
 
+      {/* Render "Other: " option if it's enabled */}
       {question.otherChoice && (
         <FormControlLabel
           key="Other"

@@ -7,6 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 
+/*
+  The message to display when our survey form has been successfully submitted.
+*/
+
 interface Props {
   className?: string;
   title: string;

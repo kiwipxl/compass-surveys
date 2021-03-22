@@ -1,5 +1,8 @@
 import { Submission, Response } from '@compass-surveys/common';
 
+// These are our database model types. They map to the values in SQL.
+// We can call get() to convert them to our regular models that is shared between client/server.
+
 export class SubmissionDB {
   id: string;
   survey_id: string;

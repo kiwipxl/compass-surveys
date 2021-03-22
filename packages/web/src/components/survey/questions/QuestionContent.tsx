@@ -7,11 +7,18 @@ import CheckboxQuestion from './CheckboxQuestion';
 import DropdownQuestion from './DropdownQuestion';
 import LinearScaleQuestion from './LinearScaleQuestion';
 
+/*
+  Renders a Question component based on it's type.
+*/
+
 interface Props {
   className?: string;
   question: Question;
   disabled?: boolean;
   defaultValue?: any;
+
+  // Invoked whenever any value has changed.
+  // This lets us move data from bottom-up so we can submit form data (for example).
   onChange?: (value: any) => void;
 }
 
@@ -61,6 +68,7 @@ const QuestionContent: React.FC<Props> = ({
       return <div>Invalid question type {question.type}</div>;
   }
 
+  // We can't use JSX tags because the type is dynamic, so we do this.
   return React.createElement(componentType as string, {
     className,
     question,

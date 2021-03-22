@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { useParams, useHistory } from 'react-router-dom';
 import useFetch, { CachePolicies } from 'use-http';
 import { SERVER_URL } from '../config';
-import ReadOnlySurveyForm from '../components/survey/ReadOnlySurveyForm';
+import SubmissionSurveyForm from '../components/survey/SubmissionSurveyForm';
 import Status from '../components/Status';
 import ErrorStatus from '../components/ErrorStatus';
 import StatusActions from '../components/StatusActions';
@@ -15,15 +15,20 @@ interface Props {
 }
 
 const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
+  // Grab survey id from browser URL
   let { surveyId } = useParams<{ surveyId: string }>();
   const routerHistory = useHistory();
 
+  // Fetch the survey data
   const {
     loading: surveyLoading,
     error: surveyLoadError,
     data: survey,
   } = useFetch(`${SERVER_URL}/surveys/${surveyId}`, {}, []);
 
+  // Fetch all submissions.
+  // In the future, if we for some reason had thousands of
+  // submissions, we'd fetch each one individually for the current submission being displayed.
   const {
     loading: submissionsLoading,
     error: submissionsLoadError,
@@ -37,6 +42,7 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
   const loading = surveyLoading || submissionsLoading;
   const error = surveyLoadError || submissionsLoadError;
 
+  // Describes which submission to display
   const [submissionIndex, setSubmissionIndex] = React.useState(0);
 
   return (
@@ -73,7 +79,7 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
               onNext={(newPage) => setSubmissionIndex(newPage)}
             ></StyledPaginationButtons>
 
-            <ReadOnlySurveyForm
+            <SubmissionSurveyForm
               key={submissionIndex}
               survey={survey}
               responses={submissions[submissionIndex].responses}
@@ -96,7 +102,7 @@ const SurveySubmissionsPage: React.FC<Props> = ({ className }) => {
                   onNext={(newPage) => setSubmissionIndex(newPage)}
                 ></StyledPaginationButtons>
               </FormActions>
-            </ReadOnlySurveyForm>
+            </SubmissionSurveyForm>
           </div>
         )}
       </Container>

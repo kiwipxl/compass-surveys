@@ -10,4 +10,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Builds the app for production to the `build` folder.\
 
-To build the project, see the root README.
+To build the whole project (client/server), see the root README.

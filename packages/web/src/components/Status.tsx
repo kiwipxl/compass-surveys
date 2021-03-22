@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
+/*
+  A status is a simple alert that gives some information on what's currently happening
+  to the user - like we're loading data.
+*/
+
 interface Props {
   className?: string;
   title?: string;

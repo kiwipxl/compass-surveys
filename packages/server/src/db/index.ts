@@ -37,6 +37,8 @@ export async function connect() {
 }
 
 export async function createNewDatabase() {
+  // Resets the database and all it's tables and data
+
   const query = {
     text: `
       DROP TABLE IF EXISTS responses;

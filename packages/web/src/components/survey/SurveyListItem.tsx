@@ -7,6 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 
+/*
+  Render a survey list item.
+*/
+
 interface Props {
   className?: string;
   id: string;

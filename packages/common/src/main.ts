@@ -1,3 +1,5 @@
+// See README for more information.
+
 export interface Survey {
   id: string;
   name: string;

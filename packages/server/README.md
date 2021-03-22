@@ -47,3 +47,20 @@ I found that method overly complex, so instead I made a response table where eve
 I debated whether to use [graphQL](https://graphql.org/) or REST. In the end, I went with REST as our api is very simple and small and there was no need to overcomplicate it with graphQL.
 
 I also thought about using [open API swagger](https://swagger.io/specification/) for defining the REST routes, but also found it too complicated and without a very mature ecosystem for node.
+
+## Scripts
+
+### `yarn dev`
+
+Runs the app in the development mode.\
+Open [http://localhost:4000](http://localhost:4000) to view it in the browser, or if you've overriden the PORT environment variable, use that instead.
+
+### `yarn start`
+
+Runs the server from the `build` folder in a production environment.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+
+To build the whole project (client/server), see the root README.

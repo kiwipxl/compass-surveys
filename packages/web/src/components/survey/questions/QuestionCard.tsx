@@ -4,6 +4,10 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
+/*
+  This component is the styling of a material-ui Card used for survey questions in a form.
+*/
+
 interface Props {
   className?: string;
   title: string;

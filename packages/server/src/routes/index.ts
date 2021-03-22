@@ -18,6 +18,7 @@ export default () => {
   app.use('/api', surveys);
   app.use('/api', submissions);
 
+  // Serve the production web build (index.html) at '/'
   const webPath = path.join(__dirname, '../../../web/build');
   console.log(`serving web app from '${webPath}'`);
   app.use(express.static(webPath));

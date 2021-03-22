@@ -4,6 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import { Survey } from '@compass-surveys/common';
 import SurveyListItem from './SurveyListItem';
 
+/*
+  Renders a list of all surveys. Displays in a grid.
+*/
+
 interface Props {
   className?: string;
   surveys: Survey[];

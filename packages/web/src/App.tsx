@@ -26,6 +26,7 @@ const App: React.FC = () => {
   );
 };
 
+// A global style lets us use global css styling with styled-components
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;

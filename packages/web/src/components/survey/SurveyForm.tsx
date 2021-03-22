@@ -11,6 +11,8 @@ interface Props {
   className?: string;
   survey: Survey;
   disabled?: boolean;
+
+  // Subscribe to submit state changes (whether we're now submitting, or we've submitted, etc).
   onSubmitStateChange?: (state: SubmitState) => void;
 }
 
@@ -36,7 +38,13 @@ const SurveyForm: React.FC<Props> = ({
     [submitState, onSubmitStateChange],
   );
 
+  // Invoked when we click the form submit button.
+  // The values here contain all of our form data/state provided
+  // by react-final-form.
   const handleSubmit = (values: any) => {
+    // Convert all of our values into Responses.
+    // This denormalises our data into key-value pairs. This is how
+    // our server likes our data structured.
     let responses: Response[] = [];
 
     if (values.questions) {
@@ -46,6 +54,7 @@ const SurveyForm: React.FC<Props> = ({
           continue;
         }
 
+        // Denormalize values into Response key-value pairs.
         const question = survey.questions[n];
         switch (question.type) {
           case 'checkbox':
@@ -82,6 +91,7 @@ const SurveyForm: React.FC<Props> = ({
       error: undefined,
     });
 
+    // Post submission to survey
     fetch(`${SERVER_URL}/surveys/${survey.id}/submissions`, {
       headers: {
         'Content-Type': 'application/json',
@@ -118,6 +128,7 @@ const SurveyForm: React.FC<Props> = ({
               subtitle={survey.subtitle}
             ></SurveyTitle>
 
+            {/* Render every question in the survey */}
             {survey.questions.map((q, index) => (
               <StyledQuestionCard
                 key={q.id}
@@ -125,6 +136,17 @@ const SurveyForm: React.FC<Props> = ({
                 subtitle={q.subtitle}
                 required={q.required || false}
               >
+                {/*
+                  Render a react-final-form Field. We set the value of this field
+                  with `props.input.onChange`, and the result is given to us on form submit.
+                  This means we don't have to handle any global state stuff ourselves - it's
+                  all done for us!
+
+                  The name here identifies which question we're dealing with.
+
+                  See here for more information:
+                  https://final-form.org/docs/react-final-form/api/Field
+                */}
                 <Field name={`questions[${index}]`}>
                   {(props) => (
                     <QuestionContent

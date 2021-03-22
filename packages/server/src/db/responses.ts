@@ -28,6 +28,7 @@ export async function getAllResponses(
   };
 
   const res = await dbClient.query(query);
+  // Convert from database row types (ResponseDB) to our common models (Response).
   return res.rows.map((r: any) => new ResponseDB(r).get());
 }
 
@@ -45,7 +46,9 @@ export async function createResponse(
 
   const res = await dbClient.query(query);
   if (res.rowCount === 0) {
-    return null;
+    throw new Error(
+      `failed to create database response for submission ${submissionId}`,
+    );
   }
 
   return new ResponseDB(res.rows[0]).get();

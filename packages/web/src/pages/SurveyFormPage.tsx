@@ -19,7 +19,9 @@ interface Props {
 }
 
 const SurveyFormPage: React.FC<Props> = ({ className }) => {
+  // Grab survey id from browser URL
   let { surveyId } = useParams<{ surveyId: string }>();
+  // Fetch survey data
   const { loading, error, data: survey } = useFetch<Survey>(
     `${SERVER_URL}/surveys/${surveyId}`,
     {},
@@ -28,7 +30,9 @@ const SurveyFormPage: React.FC<Props> = ({ className }) => {
 
   const routerHistory = useHistory();
 
+  // Used just for snackbar (toast) when there's a submit error
   const [showSubmitError, setShowSubmitError] = React.useState(false);
+  // Survey submit state (whether we're submitting, submitted, etc.)
   const [submitState, setSubmitState] = React.useState<SubmitState>({
     submitting: false,
   });

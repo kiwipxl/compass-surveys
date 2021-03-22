@@ -13,6 +13,7 @@ interface Props {
 }
 
 const SurveyListPage: React.FC<Props> = ({ className }) => {
+  // Fetch list of surveys
   const { loading, error, data: surveys } = useFetch<Survey[]>(
     `${SERVER_URL}/surveys`,
     {},

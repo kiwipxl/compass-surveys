@@ -5,6 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
+/*
+  Pagination buttons have left/right arrow buttons that let us navigate pages.
+*/
+
 interface Props {
   className?: string;
   page: number;

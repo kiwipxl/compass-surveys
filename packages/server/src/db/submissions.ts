@@ -31,6 +31,7 @@ export async function getAllSubmissions(
   };
 
   const res = await dbClient.query(query);
+  // Convert from database row types (SubmissionDB) to our common models (Submission).
   const submissions: Submission[] = res.rows.map((s: any) =>
     new SubmissionDB(s).get(),
   );
@@ -55,7 +56,9 @@ export async function createSubmission(
 
   const res = await dbClient.query(query);
   if (res.rowCount === 0) {
-    return null;
+    throw new Error(
+      `failed to create database submission for survey ${surveyId}`,
+    );
   }
 
   const submission: Submission = new SubmissionDB(res.rows[0]).get();

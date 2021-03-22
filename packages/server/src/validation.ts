@@ -3,6 +3,11 @@ import { Validator, ValidatorResult } from 'jsonschema';
 
 const validator = new Validator();
 
+// Validates a json string or json object with a schema definition.
+//
+// Example:
+// validateSchema(survey, '#/definitions/Survey');
+//
 export function validateSchema(
   json: string | object,
   ref: string,
